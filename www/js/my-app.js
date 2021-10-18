@@ -42,3 +42,10 @@ $$(document).on('page:init', '.page[data-name="about"]', function (e) {
     console.log(e);
     alert('Hello');
 })
+
+
+
+
+
+/*Mis Funciones*/
+
