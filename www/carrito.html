@@ -1,0 +1,58 @@
+<!-- We don't need a full layout in this file because this page will be parsed with Ajax.  -->
+<div class="page" data-name="carrito">
+    <div class="navbar">
+        <div class="navbar-inner sliding">
+            <div class="left">
+                <a href="#" class="link back">
+                <i class="icon icon-back"></i>
+                <span class="ios-only">back</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <section>
+            <div class="block-title">
+                <h2>Carrito de Compras</h2><br><br>
+            </div>
+
+            <div class="titulos">
+                <h3 class="t1">Descripción</h3>
+                <h3 class="t2">Cantidad</h3>
+                <h3 class="t3">Precio Unitario</h3>
+            </div>
+            <div class="titulos2">
+                <input type="text" size="20" class="c1" id="descripcion" value="">
+                <input type="number" size="5" class="c2" id="cantidad" value="">
+                <input type="number" size="5" class="c3" id="unitario" value="">
+                <input type="button" class="c4" id="suma" value="+">
+            </div>
+            <hr style="width: 85%;">
+            <div id="anotador" class="articulos">
+                <h5 id="col1"></h5>
+                <h5 id="col2"></h5>
+                <h5 id="col3"></h5>
+                <h5 id="col4"></h5>
+            </div>
+            <hr style="width: 85%;">
+            <b><h3>Totales</h3></b> <br>
+            <b>Total cantidad de artículos: <span id="totalArt">0</span></b> <br> <br>
+            <b>Total en pesos: $ <span id="totalPesos">0</span></b>
+        </section>
+        <br><br><br>
+        <label class="label1">Forma de envío/retiro:</label> <br>
+        <select name="selRange" class="select" id="envio"><option value="1">A domicilio</option>
+                                         <option value="2">Retiro en sucursal</option>
+        </select>
+
+        <br><br><br>
+        <label class="label1">Forma de pago:</label> <br>
+        <select name="selRange" class="select" id="pago"><option value="1">Efectivo al recibir/retirar</option>
+            <option value="2">Tarjeta de crédito/débito</option>
+            <option value="3">Billetera Santa Fe</option>
+            <option value="4">Cuenta Corriente</option>
+        </select> <br><br><br>
+
+        <a href="/resumen/"><input type="button" name="button" value="Confirmar Pedido" id="agregar1"></a>
+    </div>
+</div>
