@@ -134,10 +134,7 @@
   .demo-swiper.demo-swiper-auto .swiper-slide:nth-child(3n) {
     width: 30%;
   }
-#agregar1{
-    margin: 2% 40%;
-    padding: 1%;
-    border-radius: 10px;
+.boton{
     color: yellow;
     font: bold;
     background-color: orange;
@@ -151,7 +148,7 @@ section{
 }
 .categorias > a{
   text-decoration: none; 
-  color: orange; 
+  color: yellow; 
   text-align: center; 
   font: bold;
   font-size: 120%;
@@ -163,5 +160,10 @@ section{
   font: bold;
   font-size: 120%;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  background-color: yellow; 
+  background-color: orange; 
+}
+.suc > img {width: 75%; height: 75%;}
+.suc{
+  padding: 1%;
+  align-items: center;
 }

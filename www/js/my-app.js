@@ -21,6 +21,10 @@ var app = new Framework7({
       {path: '/categorias/', url: 'pages/categorias.html',},
       {path: '/cuenta/', url: 'pages/cuenta.html',},
       {path: '/resumen/', url: 'pages/resumen.html',},
+      {path: '/iniciar/', url: 'pages/iniciar.html',},
+      {path: '/sucursales/', url: 'pages/sucursales.html',},
+      {path: '/contacto/', url: 'pages/contacto.html',},
+      {path: '/registro/', url: 'pages/registro.html',},
       {path: '/aderezos/', url: 'pages/aderezos.html',},
       {path: '/aguas/', url: 'pages/aguas.html',},
       {path: '/aguassab/', url: 'pages/aguassab.html',},
@@ -53,6 +57,8 @@ var app = new Framework7({
       {path: '/verduleria/', url: 'pages/verduleria.html',},
       {path: '/vmesa/', url: 'pages/vmesa.html',},
       {path: '/whisky/', url: 'pages/whisky.html',},
+      {path: '/correa/', url: 'https://www.google.com/maps/place/Supermercado+Supersol/@-32.8470326,-61.255107,15z/data=!4m5!3m4!1s0x0:0xe31fd14d6ca6fb8a!8m2!3d-32.8470326!4d-61.255107',},
+      {path: '/cañada/', url: 'https://www.google.com/maps/place/SUPERSOL+AUTOSERVICIO/@-32.8166565,-61.3977192,17z/data=!4m5!3m4!1s0x0:0x72a815a1c9aaa56c!8m2!3d-32.8170938!4d-61.3987901',},
     ]
     // ... other parameters
   });

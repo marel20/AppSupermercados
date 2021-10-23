@@ -32,6 +32,12 @@
             <option value="4">Cuenta Corriente</option>
         </select> <br><br><br>
 
-        <a href="/resumen/"><input type="button" name="button" value="Confirmar Pedido" id="agregar1"></a>
+        <div class="block block-strong">
+            <a href="/resumen/"><button class="button button-large button-fill button-preloader ${isLoading ? 'button-loading' : ''}"
+                @click=${load} style="background-color: orange; color: yellow; font-family: Verdana, Geneva, Tahoma, sans-serif;">
+                <span class="preloader"></span>
+                <span>Confirmar Pedido</span>
+            </button></a>
+        </div>
     </div>
 </div>

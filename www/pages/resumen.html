@@ -12,6 +12,26 @@
         </div>
     </div>
     <div class="page-content">
+        <section>
+            
+            <hr style="width: 85%;">
+            <b><h3>Totales</h3></b> <br>
+            <b>Total cantidad de artículos: <span id="totalArt">0</span></b> <br> <br>
+            <b>Total en pesos: $ <span id="totalPesos">0</span></b>
+        </section>
 
+        <label class="label1">Forma de envío/retiro:</label> <br>
+            <span id="envio"></span>
+
+        <label class="label1">Forma de pago:</label> <br>
+            <span id="pago"></span>
+
+        <div class="block block-strong">
+            <a href="/index/"><button class="button button-large button-fill button-preloader ${isLoading ? 'button-loading' : ''}"
+                @click=${load} style="background-color: orange; color: yellow; font-family: Verdana, Geneva, Tahoma, sans-serif;">
+                <span class="preloader"></span>
+                <span>Volver a Inicio</span>
+            </button></a>
+        </div>
     </div>
 </div>

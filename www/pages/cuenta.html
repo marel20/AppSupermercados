@@ -12,6 +12,18 @@
         </div>
     </div>
     <div class="page-content">
-        
+        <div class="list links-list">
+            <ul>
+              <li><a href="/sucursales/">Sucursales</a></li>
+              <li><a href="/contacto/">Contacto</a></li>
+            </ul>
+        </div>
+        <div class="block block-strong">
+            <a href="/iniciar/"><button class="button button-large button-fill button-preloader ${isLoading ? 'button-loading' : ''}"
+              @click=${load} style="background-color: orange; color: yellow; font-family: Verdana, Geneva, Tahoma, sans-serif;">
+              <span class="preloader"></span>
+              <span>Iniciar Sesión</span>
+            </button></a>
+          </div>
     </div>
 </div>
