@@ -69,6 +69,7 @@ var mainView = app.views.create('.view-main');
 $$(document).on('page:init', function (e) {
     // Do something here when page loaded and initialized
     console.log(e);
+   // $$('#agregar1').on('click', fnSumar);
 
 })
 
@@ -76,7 +77,7 @@ $$(document).on('page:init', function (e) {
 $$(document).on('page:init', '.page[data-name="carrito"]', function (e) {
     // Do something here when page with data-name="about" attribute loaded and initialized
     console.log(e);
-    $$('#suma').on('click', fnSumar);
+   // $$('#confirmar').on('click', fnResumen)
 })
 
 // Option 2. Using live 'page:init' event handlers for each page
@@ -104,16 +105,16 @@ $$(document).on('page:init', '.page[data-name="resumen"]', function (e) {
 
 })
 // Option 2. Using live 'page:init' event handlers for each page
-$$(document).on('page:init', '.page[data-name=""]', function (e) {
+$$(document).on('page:init', '.page[data-name="registro"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
-
+  $$('#registro').on('click', fnAutenticar)
 })
 // Option 2. Using live 'page:init' event handlers for each page
-$$(document).on('page:init', '.page[data-name=""]', function (e) {
+$$(document).on('page:init', '.page[data-name="iniciar"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
-
+    $$('#inSes').on('click', fnIniciarSesion)
 })
 
 
@@ -121,25 +122,42 @@ $$(document).on('page:init', '.page[data-name=""]', function (e) {
 
 /*Mis Funciones*/
 
-function fnSumar() {
-  console.log('entramos en sumar')
-  objeto = $$('#descripcion').val();
-  cantidad = $$('#cantidad').val();
-  precio = $$('#unitario').val();
+function fnAutenticar() {
+  mail = $$('#mail').val();
+  contr = $$('#passw').val();
+  contr2 = $$('#confpassw').val();
+  nombre = $$('#nombre').val();
+  apellido = $$('#apellido').val();
+  cel = $$('#telefono').val();
+  fecha = $$('#fecnac').val();
 
-  $$('#col1').append(objeto + "<br>");
-  $$('#col2').append(cantidad + "<br>");
-  $$('#col3').append(precio + "<br>");
-  $$('#col4').append(cantidad * precio + "<br>");
-  
-  canTotal = parseInt($$('#totalArt').text());
-  canTotal+= parseInt(cantidad);
-  $$('#totalArt').text(canTotal);
+  if (contr == contr2) {
+      console.log('Contraseñas correctas')
+    firebase.auth().createUserWithEmailAndPassword(mail, contr)
+      .then((userCredential) => {
+        var user = userCredential.user;
+      })
+      .catch((error) => {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        console.log('error'+ errorMessage);
+      });
+  }
+  mainView.router.navigate('/index/');
 
-  pesosTotal = parseInt($$('#totalPesos').text());
-  pesosTotal+= parseInt((cantidad * precio));
-  $$('#totalPesos').text(pesosTotal);
+}
 
+function fnIniciarSesion() {
+  console.log('Inicie sesión');
 
+  mailLog = $$('#mailLog').val();
+  mailAut = firebase.auth(mailLog);
 
+    if (mailLog == mailAut) {
+      console.log('coinciden los mails');
+      mainView.router.navigate('/index/');
+
+    } else {
+      alert('no coinciden los mails');
+    }
 }

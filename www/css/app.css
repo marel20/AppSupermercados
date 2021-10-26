@@ -88,23 +88,28 @@
 .nav{
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
 }
+.nav > select {margin-left: 15%;}
 .selectsucursales{
-    padding: 0.5%;
+    padding: 1%;
     text-align: center;
     font: bold;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    color: orange;
+    color: yellow;
+    background-color: orange;
+    border-radius: 15px;
 }
 .select{
   margin: 1% 15%;
-  padding: 0.5%;
+  padding: 1%;
   text-align: center;
   font: bold;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  color: orange;
+  color: yellow;
+  background-color: orange;
+  border-radius: 15px;
 }
 .label1{
   margin: 1% 15%;
@@ -166,4 +171,12 @@ section{
 .suc{
   padding: 1%;
   align-items: center;
+}
+.ofertas  > .col-50 > span{
+  margin: 0 35%;
+  font: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.beneficios{
+  max-width: 100%;
 }

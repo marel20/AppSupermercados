@@ -21,20 +21,20 @@
         <br><br><br>
         <label class="label1">Forma de envío/retiro:</label> <br>
         <select name="selRange" class="select" id="envio"><option value="1">A domicilio</option>
-                                         <option value="2">Retiro en sucursal</option>
+                                                          <option value="2">Retiro en sucursal</option>
         </select>
 
         <br><br><br>
         <label class="label1">Forma de pago:</label> <br>
         <select name="selRange" class="select" id="pago"><option value="1">Efectivo al recibir/retirar</option>
-            <option value="2">Tarjeta de crédito/débito</option>
-            <option value="3">Billetera Santa Fe</option>
-            <option value="4">Cuenta Corriente</option>
+                                                         <option value="2">Tarjeta de crédito/débito</option>
+                                                         <option value="3">Billetera Santa Fe</option>
+                                                         <option value="4">Cuenta Corriente</option>
         </select> <br><br><br>
 
         <div class="block block-strong">
-            <a href="/resumen/"><button class="button button-large button-fill button-preloader ${isLoading ? 'button-loading' : ''}"
-                @click=${load} style="background-color: orange; color: yellow; font-family: Verdana, Geneva, Tahoma, sans-serif;">
+            <a href="/resumen/"><button id="confirmar" class="boton col button button-fill button-preloader ${isLoading ? 'button-loading' : ''}"
+                @click=${load} style="background-color: orange; color: yellow; font-family: Verdana, Geneva, Tahoma, sans-serif; text-align: center;">
                 <span class="preloader"></span>
                 <span>Confirmar Pedido</span>
             </button></a>

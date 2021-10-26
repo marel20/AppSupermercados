@@ -20,7 +20,7 @@
                 <div class="item-inner">
                   <div class="item-title item-floating-label">Nombre</div>
                   <div class="item-input-wrap">
-                    <input type="text" placeholder="Tu Nombre" />
+                    <input type="text" id="nombre" placeholder="Tu Nombre" />
                     <span class="input-clear-button"></span>
                   </div>
                 </div>
@@ -32,7 +32,7 @@
                 <div class="item-inner">
                   <div class="item-title item-floating-label">Apellido</div>
                   <div class="item-input-wrap">
-                    <input type="text" placeholder="Tu Apellido" />
+                    <input type="text" id="apellido" placeholder="Tu Apellido" />
                     <span class="input-clear-button"></span>
                   </div>
                 </div>
@@ -44,7 +44,7 @@
                 <div class="item-inner">
                   <div class="item-title item-floating-label">E-mail</div>
                   <div class="item-input-wrap">
-                    <input type="email" placeholder="Tu e-mail" />
+                    <input type="email" id="mail" placeholder="Tu e-mail" />
                     <span class="input-clear-button"></span>
                   </div>
                 </div>
@@ -56,7 +56,19 @@
                 <div class="item-inner">
                   <div class="item-title item-floating-label">Contraseña</div>
                   <div class="item-input-wrap">
-                    <input type="password" placeholder="Creá una contraseña" />
+                    <input type="password" id="passw" placeholder="Creá una contraseña" />
+                    <span class="input-clear-button"></span>
+                  </div>
+                </div>
+              </li>
+              <li class="item-content item-input">
+                <div class="item-media">
+                  <i class="icon demo-list-icon"></i>
+                </div>
+                <div class="item-inner">
+                  <div class="item-title item-floating-label">Confirma tu contraseña</div>
+                  <div class="item-input-wrap">
+                    <input type="password" id="confpassw" placeholder="Confirma la contraseña" />
                     <span class="input-clear-button"></span>
                   </div>
                 </div>
@@ -68,7 +80,7 @@
                 <div class="item-inner">
                   <div class="item-title item-floating-label">Telefono</div>
                   <div class="item-input-wrap">
-                    <input type="tel" placeholder="Ingrese su numero de celular" />
+                    <input type="tel" id="telefono" placeholder="Ingrese su numero de celular" />
                     <span class="input-clear-button"></span>
                   </div>
                 </div>
@@ -80,7 +92,7 @@
                 <div class="item-inner">
                   <div class="item-title item-floating-label">Fecha de Nacimiento</div>
                   <div class="item-input-wrap">
-                    <input type="date" name="fecha" />
+                    <input type="date" id="fecnac" name="fecha" />
                     <span class="input-clear-button"></span>
                   </div>
                 </div>
@@ -88,7 +100,7 @@
             </ul>
           </div>
         <div class="block block-strong">
-            <a href="/index/"><button class="button button-large button-fill button-preloader ${isLoading ? 'button-loading' : ''}"
+            <a href="/index/"><button id="registro" class="boton col button button-fill button-preloader ${isLoading ? 'button-loading' : ''}"
               @click=${load} style="background-color: orange; color: yellow; font-family: Verdana, Geneva, Tahoma, sans-serif;">
               <span class="preloader"></span>
               <span>Registrarse</span>
