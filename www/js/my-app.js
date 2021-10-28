@@ -130,6 +130,7 @@ function fnAutenticar() {
   apellido = $$('#apellido').val();
   cel = $$('#telefono').val();
   fecha = $$('#fecnac').val();
+  direccion = $$('#direccion').val();
 
   if (contr == contr2) {
       console.log('Contraseñas correctas')
@@ -143,7 +144,7 @@ function fnAutenticar() {
         console.log('error'+ errorMessage);
       });
   }
-  mainView.router.navigate('/index/');
+  mainView.router.navigate('/iniciar/');
 
 }
 
@@ -151,13 +152,19 @@ function fnIniciarSesion() {
   console.log('Inicie sesión');
 
   mailLog = $$('#mailLog').val();
-  mailAut = firebase.auth(mailLog);
+  mailAut = firebase.auth();
 
     if (mailLog == mailAut) {
       console.log('coinciden los mails');
       mainView.router.navigate('/index/');
+      $$('#inSes').on('click', fnSacaBoton)
 
     } else {
       alert('no coinciden los mails');
+      mainView.router.navigate('/iniciar/');
     }
+}
+
+function fnSacaBoton() {
+  $$('#ocultar').removeClass('visible').addClass('oculto');
 }

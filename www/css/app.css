@@ -78,7 +78,13 @@
        url('../fonts/poppins-v13-latin-900italic.svg#Poppins') format('svg'); /* Legacy iOS */
 }
 
-
+/* Custom color theme */
+:root {
+  --f7-theme-color: #FF8C00;
+  --f7-theme-color-rgb: 255, 140, 0;
+  --f7-theme-color-shade: #d67600;
+  --f7-theme-color-tint: #ff9e29;
+}
 
 * {
 	font-family: 'Poppins', Arial, sans-serif;
@@ -173,10 +179,18 @@ section{
   align-items: center;
 }
 .ofertas  > .col-50 > span{
-  margin: 0 35%;
+  margin: 0 30%;
   font: bold;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .beneficios{
   max-width: 100%;
+}
+.visible{
+  display: block;
+  visibility: visible;
+}
+.oculto{
+  display: none;
+  visibility: hidden;
 }
