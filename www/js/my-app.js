@@ -28,7 +28,7 @@ var app = new Framework7({
       {path: '/mispedidos/', url: 'pages/mispedidos.html',},
       {path: '/contacto/', url: 'pages/contacto.html',},
       {path: '/registro/', url: 'pages/registro.html',} ,
-      { path: '/categoria/:id/',        url: 'pages/categoria.html',  },
+      { path: '/categoria/:id/', url: 'pages/categoria.html',  },
      
     ]
     // ... other parameters
@@ -39,7 +39,7 @@ var mainView = app.views.create('.view-main');
 var db = firebase.firestore();
 var colCategorias = db.collection("categorias");
 var colProductos = db.collection("productos");
-
+var colUsuarios = db.collection("usuarios");
 
 
 // Option 1. Using one 'page:init' handler for all pages
@@ -68,6 +68,8 @@ $$(document).on('page:init', '.page[data-name="busqueda"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
 
+  
+  
 })
 
 
@@ -87,8 +89,8 @@ $$(document).on('page:init', '.page[data-name="categoria"]', function (e, page) 
             // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, " => ", doc.data());
             listaProductos += `<h3>`+doc.data().nombre+`</h3>`;
+            listaProductos += ''+doc.data().imagen+'';
             listaProductos += `<h3> $`+doc.data().precio+`</h3>`;
-            listaProductos += `<p>`+doc.data().descripcion+`</p>`;
         });
 
         $$('#listaProductos').append(listaProductos);
@@ -106,28 +108,6 @@ $$(document).on('page:init', '.page[data-name="categoria"]', function (e, page) 
 $$(document).on('page:init', '.page[data-name="categorias"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
-
-/*
-              <li class="accordion-item"><a class="item-content item-link" href="#">
-                  <div class="item-inner">
-                    <div class="item-title">Almacen</div>
-                  </div>
-                </a>
-                <div class="accordion-item-content">
-                  <div class="block categorias">
-                        <a href="/comestibles/">Comestibles</a>  <br>
-                        <a href="/infusiones/">Infusiones</a> <br>
-                        <a href="/conservas/">Conservas</a> <br>
-                        <a href="/enlatados/">Enlatados</a> <br>
-                        <a href="/envasados/">Envasados</a> <br>
-                        <a href="/aderezos/">Aderezos/Especies</a> <br>
-                        <a href="/galletas/">Galletas</a> <br>
-                        <a href="/golosinas/">Golosinas</a> <br>
-                  </div>
-                </div>
-              </li>
-*/
-
 
 grupoActual = "";
 inicio = 0;
@@ -212,39 +192,235 @@ $$(document).on('page:init', '.page[data-name="iniciar"]', function (e) {
 function crearCategorias() {
   
   
-/*  
+  
   console.log("creando categorias");
-  dameUnID = "1";   datos = { categoria: "Gaseosas", grupo: "Bebidas" };
+  dameUnID = "1";   datos = { categoria: "Comestibles", grupo: "Almacen" };
   colCategorias.doc(dameUnID).set(datos);
 
-  dameUnID = "2";   datos = { categoria: "Cervezas", grupo: "Bebidas" };
+  dameUnID = "2";   datos = { categoria: "Infusiones", grupo: "Almacen" };
   colCategorias.doc(dameUnID).set(datos);
 
-  dameUnID = "3";   datos = { categoria: "Vinos", grupo: "Bebidas" };
+  dameUnID = "3";   datos = { categoria: "Conservas", grupo: "Almacen" };
   colCategorias.doc(dameUnID).set(datos);
 
-  dameUnID = "4";   datos = { categoria: "Papas fritas", grupo: "Copetin" };
+  dameUnID = "4";   datos = { categoria: "Enlatados", grupo: "Almacen" };
   colCategorias.doc(dameUnID).set(datos);
 
-  dameUnID = "5";   datos = { categoria: "Manies", grupo: "Copetin" };
+  dameUnID = "5";   datos = { categoria: "Envasados", grupo: "Almacen" };
   colCategorias.doc(dameUnID).set(datos);
-*/
 
-/*
+  dameUnID = "6";   datos = { categoria: "Aderezos", grupo: "Almacen" };
+  colCategorias.doc(dameUnID).set(datos);
+
+  dameUnID = "7";   datos = { categoria: "Galletas", grupo: "Almacen" };
+  colCategorias.doc(dameUnID).set(datos);
+
+  dameUnID = "8";   datos = { categoria: "Golosinas", grupo: "Almacen" };
+  colCategorias.doc(dameUnID).set(datos);
+
+  dameUnID = "9";   datos = { categoria: "Aperitivos", grupo: "Bebidas" };
+  colCategorias.doc(dameUnID).set(datos);
+
+  dameUnID = "10";   datos = { categoria: "Gaseosas", grupo: "Bebidas" };
+  colCategorias.doc(dameUnID).set(datos);
+  
+  dameUnID = "11";   datos = { categoria: "Jugos", grupo: "Bebidas" };
+  colCategorias.doc(dameUnID).set(datos);
+
+  dameUnID = "12";   datos = { categoria: "Licores", grupo: "Bebidas" };
+  colCategorias.doc(dameUnID).set(datos);
+
+  dameUnID = "13";   datos = { categoria: "Champagnes", grupo: "Bebidas" };
+  colCategorias.doc(dameUnID).set(datos);
+
+  dameUnID = "14";   datos = { categoria: "Vinos de Mesa", grupo: "Bebidas" };
+  colCategorias.doc(dameUnID).set(datos);
+
+  dameUnID = "15";   datos = { categoria: "Whisky", grupo: "Bebidas" };
+  colCategorias.doc(dameUnID).set(datos);
+
+  dameUnID = "16";   datos = { categoria: "Sidras", grupo: "Bebidas" };
+  colCategorias.doc(dameUnID).set(datos);
+
+  dameUnID = "17";   datos = { categoria: "Energizantes", grupo: "Bebidas" };
+  colCategorias.doc(dameUnID).set(datos);
+
+  dameUnID = "18";   datos = { categoria: "Cervezas", grupo: "Bebidas" };
+  colCategorias.doc(dameUnID).set(datos);
+
+  dameUnID = "19";   datos = { categoria: "Aguas Saborizadas", grupo: "Bebidas" };
+  colCategorias.doc(dameUnID).set(datos);
+
+  dameUnID = "20";   datos = { categoria: "Aguas Minerales", grupo: "Bebidas" };
+  colCategorias.doc(dameUnID).set(datos);
+
+  dameUnID = "21";   datos = { categoria: "Carnicería", grupo: "Alimentos Frescos" };
+  colCategorias.doc(dameUnID).set(datos);
+
+  dameUnID = "22";   datos = { categoria: "Verdulería", grupo: "Alimentos Frescos" };
+  colCategorias.doc(dameUnID).set(datos);
+
+  dameUnID = "23";   datos = { categoria: "Fiambrería", grupo: "Alimentos Frescos" };
+  colCategorias.doc(dameUnID).set(datos);
+
+  dameUnID = "24";   datos = { categoria: "Panadería", grupo: "Alimentos Frescos" };
+  colCategorias.doc(dameUnID).set(datos);
+
+  dameUnID = "25";   datos = { categoria: "Lacteos", grupo: "Alimentos Frescos" };
+  colCategorias.doc(dameUnID).set(datos);
+
+  dameUnID = "26";   datos = { categoria: "Pastas", grupo: "Alimentos Frescos" };
+  colCategorias.doc(dameUnID).set(datos);
+
+  dameUnID = "27";   datos = { categoria: "Congelados", grupo: "Alimentos Frescos" };
+  colCategorias.doc(dameUnID).set(datos);
+
+  dameUnID = "28";   datos = { categoria: "Perfumeria", grupo: "Perfumería y Limpieza" };
+  colCategorias.doc(dameUnID).set(datos);
+
+  dameUnID = "29";   datos = { categoria: "Limpieza", grupo: "Perfumería y Limpieza" };
+  colCategorias.doc(dameUnID).set(datos);
+
+  dameUnID = "30";   datos = { categoria: "Alimentos", grupo: "Mascotas" };
+  colCategorias.doc(dameUnID).set(datos);
+
+  dameUnID = "31";   datos = { categoria: "Hogar", grupo: "Bazar" };
+  colCategorias.doc(dameUnID).set(datos);
+
+  dameUnID = "32";   datos = { categoria: "Fiestas", grupo: "Otras Categorías" };
+  colCategorias.doc(dameUnID).set(datos);
+
+
 console.log("creando productos");
-dameUnID = "1001";   datos = { nombre: "Manaos de Uva - 2.25", precio: 99, imagen: '/img/manaos.jpg',
- descripcion: 'Uva super refrescante', enOferta: 1, destado: 0, codCategoria: "1" };
+
+dameUnID = "1001";   datos = { nombre: "Fideos Coditos knorr", precio: 57.80, imagen: 'img/ofertas/oferta1.jpg',
+ enOferta: 0, destado: 1, codCategoria: "1" };
 colProductos.doc(dameUnID).set(datos);
 
-dameUnID = "1002";   datos = { nombre: "Coca-Cola - 2.25", precio: 139, imagen: '/img/coca.jpg',
- descripcion: 'Cola sin azucar', enOferta: 1, destado: 1, codCategoria: "1" };
+dameUnID = "1002";   datos = { nombre: "Te La Virginia x25 unid.", precio: 25, imagen: 'img/ofertas/oferta1.jpg',
+ enOferta: 0, destado: 1, codCategoria: "2" };
 colProductos.doc(dameUnID).set(datos);
 
-dameUnID = "1003";   datos = { nombre: "Pepsi - 2.25", precio: 139, imagen: '/img/coca.jpg',
- descripcion: 'Cola sin azucar', enOferta: 0, destado: 1, codCategoria: "1" };
+dameUnID = "1003";   datos = { nombre: "Atun Lomito Al Natural Bahía", precio: 90, imagen: 'img/ofertas/oferta1.jpg',
+ enOferta: 0, destado: 1, codCategoria: "3" };
 colProductos.doc(dameUnID).set(datos);
 
-*/
+dameUnID = "1004";   datos = { nombre: "Tomate Perita Noel", precio: 63, imagen: 'img/ofertas/oferta1.jpg',
+ enOferta: 0, destado: 1, codCategoria: "4" };
+colProductos.doc(dameUnID).set(datos);
+
+dameUnID = "1005";   datos = { nombre: "Aceitunas Vanoli dp x300", precio: 38, imagen: 'img/ofertas/oferta1.jpg',
+ enOferta: 0, destado: 1, codCategoria: "5" };
+colProductos.doc(dameUnID).set(datos);
+
+dameUnID = "1006";   datos = { nombre: "Savora Original x250", precio: 65, imagen: 'img/ofertas/oferta1.jpg',
+ enOferta: 0, destado: 1, codCategoria: "6" };
+colProductos.doc(dameUnID).set(datos);
+
+dameUnID = "1007";   datos = { nombre: "Vainillas Lara x300", precio: 70, imagen: 'img/ofertas/oferta1.jpg',
+ enOferta: 0, destado: 1, codCategoria: "7" };
+colProductos.doc(dameUnID).set(datos);
+
+dameUnID = "1008";   datos = { nombre: "Gomas Fantasia Misky x 1Kg", precio: 130, imagen: 'img/ofertas/oferta1.jpg',
+ enOferta: 0, destado: 1, codCategoria: "8" };
+colProductos.doc(dameUnID).set(datos);
+
+dameUnID = "1009";   datos = { nombre: "Fernet Branca x 1 Lt.", precio: 949, imagen: 'img/ofertas/oferta1.jpg',
+ enOferta: 0, destado: 1, codCategoria: "9" };
+colProductos.doc(dameUnID).set(datos);
+
+dameUnID = "1010";   datos = { nombre: "Manaos de Uva - 2.25", precio: 99, imagen: 'img/ofertas/oferta1.jpg',
+  enOferta: 1, destado: 0, codCategoria: "10" };
+colProductos.doc(dameUnID).set(datos);
+
+dameUnID = "1011";   datos = { nombre: "Jugo en Polvo Tang Naranja", precio: 33, imagen: 'img/ofertas/oferta1.jpg',
+  enOferta: 1, destado: 1, codCategoria: "11" };
+colProductos.doc(dameUnID).set(datos);
+
+dameUnID = "1012";   datos = { nombre: "Licor Tia Maria Cream", precio: 850, imagen: 'img/ofertas/oferta1.jpg',
+  enOferta: 0, destado: 1, codCategoria: "12" };
+colProductos.doc(dameUnID).set(datos);
+
+dameUnID = "1013";   datos = { nombre: "Champagne Baron B", precio: 2500, imagen: 'img/ofertas/oferta1.jpg',
+  enOferta: 1, destado: 1, codCategoria: "13" };
+colProductos.doc(dameUnID).set(datos);
+
+dameUnID = "1014";   datos = { nombre: "Vino Rutini Cabernet-Malbec", precio: 1050, imagen: 'img/ofertas/oferta1.jpg',
+  enOferta: 0, destado: 1, codCategoria: "14" };
+colProductos.doc(dameUnID).set(datos);
+
+dameUnID = "1015";   datos = { nombre: "Whisky Jack Daniel´s", precio: 4500, imagen: 'img/ofertas/oferta1.jpg',
+  enOferta: 0, destado: 1, codCategoria: "15" };
+colProductos.doc(dameUnID).set(datos);
+
+dameUnID = "1016";   datos = { nombre: "Sidra Real", precio: 250, imagen: 'img/ofertas/oferta1.jpg',
+  enOferta: 0, destado: 1, codCategoria: "16" };
+colProductos.doc(dameUnID).set(datos);
+
+dameUnID = "1017";   datos = { nombre: "Red Bull x250", precio: 110, imagen: 'img/ofertas/oferta1.jpg',
+  enOferta: 0, destado: 1, codCategoria: "17" };
+colProductos.doc(dameUnID).set(datos);
+
+dameUnID = "1018";   datos = { nombre: "Patagonia Amber Lager x473cc", precio: 180, imagen: 'img/ofertas/oferta1.jpg',
+  enOferta: 0, destado: 1, codCategoria: "18" };
+colProductos.doc(dameUnID).set(datos);
+
+dameUnID = "1019";   datos = { nombre: "Baggio Fresh Pera", precio: 84, imagen: 'img/ofertas/oferta1.jpg',
+  enOferta: 0, destado: 1, codCategoria: "19" };
+colProductos.doc(dameUnID).set(datos);
+
+dameUnID = "1020";   datos = { nombre: "Agua Villavicencio 2 lts", precio: 80, imagen: 'img/ofertas/oferta1.jpg',
+  enOferta: 0, destado: 1, codCategoria: "20" };
+colProductos.doc(dameUnID).set(datos);
+
+dameUnID = "1021";   datos = { nombre: "Asado Costilla x500 grs", precio: 425, imagen: 'img/ofertas/oferta1.jpg',
+  enOferta: 0, destado: 1, codCategoria: "21" };
+colProductos.doc(dameUnID).set(datos);
+
+dameUnID = "1022";   datos = { nombre: "Cebolla x 1kg", precio: 100, imagen: 'img/ofertas/oferta1.jpg',
+  enOferta: 0, destado: 1, codCategoria: "22" };
+colProductos.doc(dameUnID).set(datos);
+
+dameUnID = "1023";   datos = { nombre: "Queso Barra x 150 grs", precio: 100, imagen: 'img/ofertas/oferta1.jpg',
+  enOferta: 0, destado: 1, codCategoria: "23" };
+colProductos.doc(dameUnID).set(datos);
+
+dameUnID = "1024";   datos = { nombre: "Pan x 150grs", precio: 25, imagen: 'img/ofertas/oferta1.jpg',
+  enOferta: 0, destado: 1, codCategoria: "24" };
+colProductos.doc(dameUnID).set(datos);
+
+dameUnID = "1025";   datos = { nombre: "Leche La Serenisima Entera x 1 Lt", precio: 115, imagen: 'img/ofertas/oferta1.jpg',
+  enOferta: 0, destado: 1, codCategoria: "25" };
+colProductos.doc(dameUnID).set(datos);
+
+dameUnID = "1026";   datos = { nombre: "Ravioles HDT x500 grs", precio: 350, imagen: 'img/ofertas/oferta1.jpg',
+  enOferta: 0, destado: 1, codCategoria: "26" };
+colProductos.doc(dameUnID).set(datos);
+
+dameUnID = "1027";   datos = { nombre: "Hamburguesa Super Paty", precio: 100, imagen: 'img/ofertas/oferta1.jpg',
+  enOferta: 0, destado: 1, codCategoria: "27" };
+colProductos.doc(dameUnID).set(datos);
+
+dameUnID = "1028";   datos = { nombre: "Papel Higienico Felpita x30 mts", precio: 60, imagen: 'img/ofertas/oferta1.jpg',
+  enOferta: 0, destado: 1, codCategoria: "28" };
+colProductos.doc(dameUnID).set(datos);
+
+dameUnID = "1029";   datos = { nombre: "Limpiador Poett x900 cc Lavanda", precio: 89, imagen: 'img/ofertas/oferta1.jpg',
+  enOferta: 0, destado: 1, codCategoria: "29" };
+colProductos.doc(dameUnID).set(datos);
+
+dameUnID = "1030";   datos = { nombre: "Dog Chow x21 kg", precio: 1500, imagen: '/img/ofertas/oferta1.jpg',
+  enOferta: 0, destado: 1, codCategoria: "30" };
+colProductos.doc(dameUnID).set(datos);
+
+dameUnID = "1031";   datos = { nombre: "Termo Lumilagro", precio: 900, imagen: 'img/ofertas/oferta1.jpg',
+  enOferta: 0, destado: 1, codCategoria: "31" };
+colProductos.doc(dameUnID).set(datos);
+
+dameUnID = "1032";   datos = { nombre: "Pan Dulce Fantoche con chips", precio: 150, imagen: 'img/ofertas/oferta1.jpg',
+  enOferta: 0, destado: 1, codCategoria: "32" };
+colProductos.doc(dameUnID).set(datos);
+
 
 
   /*
