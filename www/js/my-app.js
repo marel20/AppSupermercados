@@ -60,7 +60,7 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
 $$(document).on('page:init', '.page[data-name="carrito"]', function (e) {
     // Do something here when page with data-name="about" attribute loaded and initialized
     console.log(e);
-   $$('#confirmar').on('click', fnResumen)
+   $$('#confirmar').on('click', fnConfirmarPedido)
 })
 
 // Option 2. Using live 'page:init' event handlers for each page
@@ -172,7 +172,7 @@ $$(document).on('page:init', '.page[data-name="cuenta"]', function (e) {
 $$(document).on('page:init', '.page[data-name="resumen"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
-  $$('#volver').on('click', fnConfirmarPedido);
+  $$('#volver').on('click', fnVolverInicio);
 })
 // Option 2. Using live 'page:init' event handlers for each page
 $$(document).on('page:init', '.page[data-name="registro"]', function (e) {
@@ -453,9 +453,12 @@ colProductos.doc(dameUnID).set(datos);
 }
 
 
-function fnAgregaProducto(n,p) {
-  
-  foto = doc.data().imagen;
+function fnAgregaProducto(f,n,p) {
+    var f= db.collection("productos").document("id").get("imagen");
+    var n= db.collection("productos").document("id").get("nombre");
+    var p= db.collection("productos").document("id").get("precio");
+    
+  foto = f;
   producto = n;
   precio = p;
   cantidad = 1;
@@ -590,7 +593,9 @@ function fnSacaBoton() {
   $$('#ocultar').removeClass('visible').addClass('oculto');
 }
 
-function fnResumen() {
+function fnConfirmarPedido() {
+  envio = $$('#envio').val();
+  pago = $$('#pago').val();
   
   $$('#Rfoto').append($$('#foto').val());
   $$('#Rdescripcion').append($$('#descripcion').val());
@@ -599,14 +604,14 @@ function fnResumen() {
   $$('#RprecTotal').append($$('#precTotal').val());
   $$('#RtotalArt').html($$('#totalArt').val());
   $$('#RtotalPesos').html($$('#totalPesos').val());
-  $$('#envioR').html($$('#envio]').val());
-  $$('#pagoR').html($$('#pago').val());
+  $$('#envioR').html(envio);
+  $$('#pagoR').html(pago);
 
   mainView.router.navigate('/resumen/');
 
 }
 
-function fnConfirmarPedido() {
+function fnVolverInicio() {
   $$('#foto').text("");
   $$('#Rfoto').text("");
   $$('#descripcion').text("");
