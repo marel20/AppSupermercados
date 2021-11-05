@@ -86,6 +86,10 @@
   --f7-theme-color-tint: #ff9e29;
 }
 
+#app{
+  height: 90vh;
+}
+
 * {
 	font-family: 'Poppins', Arial, sans-serif;
 }
@@ -109,7 +113,7 @@
 }
 .select{
   margin: 1% 15%;
-  padding: 1%;
+  padding: 3%;
   text-align: center;
   font: bold;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -193,4 +197,12 @@ section{
 .oculto{
   display: none;
   visibility: hidden;
+}
+#listaProductos > .col-50 > img {max-width: 60%; max-height: 60%; margin-left: 15%;}
+#listaProductos > .col-50 > h3 {margin-left: 15%;}
+#listaProductos > .col-50 > h4 {margin-left: 15%;}
+#listaProductos {
+  margin: 2% 5%;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
 }

@@ -120,3 +120,20 @@
         </div>
     </div>
 </div>
+
+function fnIniciarSesion() {
+    console.log('Inicie sesión');
+  
+    mailLog = $$('#mailLog').val();
+    mailAut = firebase.auth();
+  
+      if (mailLog == mailAut) {
+        console.log('coinciden los mails');
+        mainView.router.navigate('/index/');
+        $$('#inSes').on('click', fnSacaBoton)
+  
+      } else {
+        alert('no coinciden los mails');
+        mainView.router.navigate('/iniciar/');
+      }
+  }

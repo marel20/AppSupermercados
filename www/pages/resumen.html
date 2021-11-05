@@ -14,24 +14,33 @@
     <div class="page-content">
         <section>
             
+            <div class="row">
+                <span id="Rfoto"></span>
+                <span id="Rdescripcion"></span>
+                <span id="Rcantidad"></span>
+                <span id="RprecUnit"></span>
+                <span id="RprecTotal"></span>
+            </div>
+
+
             <hr style="width: 85%;">
             <b><h3>Totales</h3></b> <br>
-            <b>Total cantidad de artículos: <span id="totalArt">0</span></b> <br> <br>
-            <b>Total en pesos: $ <span id="totalPesos">0</span></b>
+            <b>Total cantidad de artículos: <span id="RtotalArt">0</span></b> <br> <br>
+            <b>Total en pesos: $ <span id="RtotalPesos">0</span></b>
         </section>
 
-        <label class="label1">Forma de envío/retiro:</label> <br>
+        <label class="label1">Forma de envío/retiro:</label> <br> <br> <br> <br>
             <span id="envioR"></span>
 
         <label class="label1">Forma de pago:</label> <br>
             <span id="pagoR"></span>
 
         <div class="block block-strong">
-            <a href="/index/"><button class="boton col button button-fill button-preloader ${isLoading ? 'button-loading' : ''}"
+            <button id="volver" class="boton col button button-fill button-preloader ${isLoading ? 'button-loading' : ''}"
                 @click=${load} style="background-color: orange; color: yellow; font-family: Verdana, Geneva, Tahoma, sans-serif;">
                 <span class="preloader"></span>
                 <span>Volver a Inicio</span>
-            </button></a>
+            </button>
         </div>
     </div>
 </div>
