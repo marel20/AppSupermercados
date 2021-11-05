@@ -91,9 +91,20 @@ $$(document).on('page:init', '.page[data-name="categoria"]', function (e, page) 
             listaProductos += `<div class="col-50"><h4>`+doc.data().nombre+`</h4> <br>`;
             listaProductos += `<img src=`+doc.data().imagen+`>`;
             listaProductos += `<h3> $`+doc.data().precio+`</h3> <br>`;
-            listaProductos += `<div class="block-strong">
+            listaProductos += `<div class="block-strong visible">
             <button class="boton col button button-fill" id="agregar1" onClick="fnAgregaProducto(n,p)">Agregar a carrito</button>
-            </div></div>`;
+            </div></div>
+            <div class="row margin-top oculto">
+              <div class="col">
+                <div class="stepper stepper-small stepper-fill stepper-round stepper-init color-orange">
+                      <div class="stepper-button-minus"></div>
+                          <div class="stepper-input-wrap">
+                              <input type="text" value="0" min="0" max="100" step="1" readonly />
+                          </div>
+                      <div class="stepper-button-plus"></div>
+                  </div>
+              </div>
+          </div>`;
         });
 
         $$('#listaProductos').append(listaProductos);
@@ -550,7 +561,7 @@ function fnIngresoUsuario() {
         console.log("Bienvenid@!!! " + email);
         // traer los datos de la base de datos de ESTE usuario en particular
 
-        docRef = coleccionUsuarios.doc(email)
+        docRef = colUsuarios.doc(email)
 
             docRef.get(user).then((doc) => {
                 if (doc.exists) {
@@ -559,15 +570,8 @@ function fnIngresoUsuario() {
                     apellido = doc.data().apellido;
                     tipoUsuario = doc.data().tipoUsuario;
 
-
-                    if (tipoUsuario == "Usuario") {
-                        console.log("anda para Usuario");
-                         mainView.router.navigate('/index/');
-                         fnSacaBoton()
-                    } else {
-                        console.log("vamos para el admin");
-                    }
-
+                    mainView.router.navigate('/index/');
+                    fnSacaBoton
                 } else {
                     // doc.data() will be undefined in this case
                     console.log("Debes registrarte para iniciar sesión");
