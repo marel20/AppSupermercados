@@ -41,6 +41,29 @@ var colCategorias = db.collection("categorias");
 var colProductos = db.collection("productos");
 var colUsuarios = db.collection("usuarios");
 
+var n="";
+var p="";
+
+var descr = '#descripcion';
+var cant = '#cantidad';
+var precUnit = '#precUnit';
+var precTotal = '#precTotal';
+var totalArt = '#totalArt';
+var totalPesos = '#totalPesos';
+
+var envio = '#envio';
+var pago = '#pago';
+
+
+var Rdescr = '#Rdescripcion';
+var Rcant = '#Rcantidad';
+var RprecUnit = '#RprecUnit';
+var RprecTotal = '#RprecTotal';
+var RtotalArt = '#RtotalArt';
+var RtotalPesos = '#RtotalPesos';
+
+var envioR = '#envioR';
+var pagoR = '#pagoR';
 
 // Option 1. Using one 'page:init' handler for all pages
 $$(document).on('page:init', function (e) {
@@ -53,7 +76,7 @@ $$(document).on('page:init', function (e) {
 $$(document).on('page:init', '.page[data-name="index"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   crearCategorias();
-
+  
 })
 
 // Option 2. Using live 'page:init' event handlers for each page
@@ -78,6 +101,7 @@ $$(document).on('page:init', '.page[data-name="categoria"]', function (e, page) 
   console.log(e);
   console.log('Pag. Categoria con id: ' + page.route.params.id );
   idCategoria = "" + page.route.params.id;
+ 
   
 
   listaProductos = '';
@@ -88,11 +112,16 @@ $$(document).on('page:init', '.page[data-name="categoria"]', function (e, page) 
         querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, " => ", doc.data());
+
+            n=doc.data().nombre;
+            p=doc.data().precio;
+
             listaProductos += `<div class="col-50"><h4>`+doc.data().nombre+`</h4> <br>`;
             listaProductos += `<img src=`+doc.data().imagen+`>`;
             listaProductos += `<h3> $`+doc.data().precio+`</h3> <br>`;
-            listaProductos += `<div class="block-strong visible">
-            <button class="boton col button button-fill" id="agregar1" onClick="fnAgregaProducto(n,p)">Agregar a carrito</button>
+            listaProductos += `
+            <div class="block-strong visible">
+            <button class="boton col button button-fill" id="agregar1">Agregar a carrito</button>
             </div></div>
             <div class="row margin-top oculto">
               <div class="col">
@@ -107,12 +136,15 @@ $$(document).on('page:init', '.page[data-name="categoria"]', function (e, page) 
           </div>`;
         });
 
-        $$('#listaProductos').append(listaProductos);
+        $$('#listaProductos').append(listaProductos); 
+        $$('#agregar1').on('click', fnAgregaProducto);
 
     })
     .catch((error) => {
         console.log("Error getting documents: ", error);
     });
+   
+  
 
 })
 
@@ -464,31 +496,31 @@ colProductos.doc(dameUnID).set(datos);
 }
 
 
-function fnAgregaProducto(f,n,p) {
-    var f= db.collection("productos").document("id").get("imagen");
-    var n= db.collection("productos").document("id").get("nombre");
-    var p= db.collection("productos").document("id").get("precio");
-    
-  foto = f;
+function fnAgregaProducto() {
+
+    console.log('Entramos en la funcion');
+ 
   producto = n;
   precio = p;
   cantidad = 1;
+  console.log(producto);
+  console.log(precio);
 
-  $$('#foto').append(foto);
-  $$('#descripcion').append(producto + "<br>");
-  $$('#cantidad').append(cantidad+= + "<br>");
-  $$('#precUnit').append(precio + "<br>");
-  $$('#precTotal').append(cantidad * precio + "<br>");
+  
+  $$(descr).append(producto + "<br>");
+  $$(cant).append(cantidad+= + "<br>");
+  $$(precUnit).append(precio + "<br>");
+  $$(precTotal).append(cantidad * precio + "<br>");
 
+  canTotal = $$(totalArt).val();
+  canTotal+= cantidad;
+  $$(totalArt).html(canTotal);
+  console.log(canTotal);
 
-  canTotal = parseInt($$('#totalArt').text());
-  canTotal+= parseInt(cantidad);
-  $$('#totalArt').text(canTotal);
-
-  pesosTotal = parseInt($$('#totalPesos').text());
-  pesosTotal+= parseInt((cantidad * precio));
-  $$('#totalPesos').text(pesosTotal);
-
+  pesosTotal = $$(totalPesos).val();
+  pesosTotal+= (cantidad * precio);
+  $$(totalPesos).text(pesosTotal);
+  console.log(pesosTotal);
 
 }
 
@@ -591,6 +623,7 @@ function fnIngresoUsuario() {
             console.error(errorMessage);
             $$('#mailLog').html(errorMessage);
       });  
+      fnSacaBoton();
 }
 
 function fnSacaBoton() {
@@ -598,18 +631,18 @@ function fnSacaBoton() {
 }
 
 function fnConfirmarPedido() {
-  envio = $$('#envio').val();
-  pago = $$('#pago').val();
-  
-  $$('#Rfoto').append($$('#foto').val());
-  $$('#Rdescripcion').append($$('#descripcion').val());
-  $$('#Rcantidad').append($$('#cantidad').val());
-  $$('#RprecUnit').append($$('#precUnit').val());
-  $$('#RprecTotal').append($$('#precTotal').val());
-  $$('#RtotalArt').html($$('#totalArt').val());
-  $$('#RtotalPesos').html($$('#totalPesos').val());
-  $$('#envioR').html(envio);
-  $$('#pagoR').html(pago);
+  console.log('Entramos a la funcion')
+
+  $$(Rdescr).append($$(descr).val());
+  $$(Rcant).append($$(cant).val());
+  $$(RprecUnit).append($$(precUnit).val());
+  $$(RprecTotal).append($$(precTotal).val());
+  $$(RtotalArt).html($$(totalArt).val());
+  $$(RtotalPesos).html($$(RtotalPesos).val());
+  $$(envioR).html($$(envio).change());
+  $$(pagoR).html($$(pago).change());
+  console.log(envio);
+  console.log(pago);
 
   mainView.router.navigate('/resumen/');
 
