@@ -94,9 +94,8 @@ var getData = function () {
 // Option 1. Using one 'page:init' handler for all pages
 $$(document).on('page:init', function (e) {
     // Do something here when page loaded and initialized
-    console.log(e);
+    //console.log(e);
    $$('#agregar1').on('click', fnAgregaProducto);
-   $$('#confirmar').on('click', fnConfirmarPedido);
 
 
 
@@ -105,6 +104,7 @@ $$(document).on('page:init', function (e) {
 $$(document).on('page:init', '.page[data-name="index"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   crearCategorias();
+  $$('#confirmar').on('click', fnConfirmarPedido);
   
 })
 
@@ -236,8 +236,11 @@ $$(document).on('page:init', '.page[data-name="cuenta"]', function (e) {
 // Option 2. Using live 'page:init' event handlers for each page
 $$(document).on('page:init', '.page[data-name="resumen"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
-  console.log(e);
+ // console.log(e);
   $$('#volver').on('click', fnVolverInicio);
+  console.log('estoy por llenar el resumen')
+  fnLlenarResumen();
+  
 })
 // Option 2. Using live 'page:init' event handlers for each page
 $$(document).on('page:init', '.page[data-name="registro"]', function (e) {
@@ -513,7 +516,7 @@ colProductos.doc(dameUnID).set(datos);
   */
 }
 
-
+var micarrito = []
 function fnAgregaProducto() {
 
     console.log('Entramos en la funcion');
@@ -521,6 +524,7 @@ function fnAgregaProducto() {
   producto = n;
   precio = p;
   cantidad = 1;
+  micarrito.push({nombre:producto, precio:precio, cantidad:1})
   console.log(producto);
   console.log(precio);
 
@@ -538,7 +542,6 @@ function fnAgregaProducto() {
   pesosTotal+= parseInt((cantidad * precio));
   $$(totalPesos).html(pesosTotal);
   //console.log(pesosTotal);
-
 }
 
 function fnNuevoUsuario() {
@@ -651,23 +654,50 @@ function fnSacaBoton() {
   $$('#ocultar').removeClass('visible').addClass('oculto');
 }
 
-function fnConfirmarPedido() {
-  console.log('Entramos a la funcion')
+function fnLlenarResumen() {
+  console.log(micarrito);
+  var totalDeMiCarrito = 0;
+  var totalDeArticulos = 0;
+  var retiroMercaderia = "";
+  var formaDePago = "";
+  micarrito.map(function(producto){
+    totalDeMiCarrito += producto.precio;
+    totalDeArticulos += producto.cantidad;
+    retiroMercaderia = $$('#envio').val();
+    formaDePago = $$('#pago').val();
+    var productoParaAgregar=`  
+    <div class="col-33"><h4 id="Rdescripcion">${producto.nombre}</h4></div>
+    <div class="col-33"><h4 id="Rcantidad">${producto.cantidad}</h4></div>
+    <div class="col-33"><h4 id="RprecUnit">${producto.precio}</h4></div>`
 
+    //algo como: id. append
+    $$('#resumenPedido').append(productoParaAgregar);
+    $$('#RtotalArt').html(totalDeArticulos);
+    $$('#RtotalPesos').html(totalDeMiCarrito);
+    $$('#envioR').html(retiroMercaderia);
+    $$('#pagoR').html(formaDePago);
+  })
+}
+
+function fnConfirmarPedido() {
+  //console.log('Entramos a la funcion')
   mainView.router.navigate('/resumen/');
 
 
+
+/*
   $$(Rdescr).append($$(descr).val());
   $$(Rcant).append($$(cant).val());
   $$(RprecUnit).append($$(precUnit).val());
   $$(RprecTotal).append($$(precTotal).val());
   $$(RtotalArt).html($$(totalArt).val());
   $$(RtotalPesos).html($$(RtotalPesos).val());
-  $$(envioR).html($$(envio).smartSelect.getValue());
-  $$(pagoR).html($$(pago).smartSelect.getValue());
+  $$(envioR).html($$(envio).html());
+  $$(pagoR).html($$(pago).html());
   console.log(envio);
   console.log(pago);
-
+*/
+  
 
 }
 
@@ -686,9 +716,7 @@ function fnVolverInicio() {
   $$('#RtotalArt').text(0);
   $$('#totalPesos').text(0);
   $$('#RtotalPesos').text(0);
-  $$('#envio').text("");
   $$('#envioR').text("");
-  $$('#pago').text("");
   $$('#pagoR').text("");
   
   mainView.router.navigate('/index/');
