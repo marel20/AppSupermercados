@@ -17,7 +17,6 @@ var app = new Framework7({
     routes: [
 
    
-      {path: '/carrito/', url: 'pages/carrito.html',},
       {path: '/index/', url: 'index.html',},
       {path: '/busqueda/', url: 'pages/busqueda.html',},
       {path: '/categorias/', url: 'pages/categorias.html',},
@@ -25,7 +24,6 @@ var app = new Framework7({
       {path: '/resumen/', url: 'pages/resumen.html',},
       {path: '/iniciar/', url: 'pages/iniciar.html',},
       {path: '/sucursales/', url: 'pages/sucursales.html',},
-      {path: '/mispedidos/', url: 'pages/mispedidos.html',},
       {path: '/contacto/', url: 'pages/contacto.html',},
       {path: '/registro/', url: 'pages/registro.html',} ,
       {path: '/categoria/:id/', url: 'pages/categoria.html',},
@@ -41,13 +39,13 @@ var colCategorias = db.collection("categorias");
 var colProductos = db.collection("productos");
 var colUsuarios = db.collection("usuarios");
 
+
 var n="";
 var p="";
 
 var descr = '#descripcion';
 var cant = '#cantidad';
 var precUnit = '#precUnit';
-var precTotal = '#precTotal';
 var totalArt = '#totalArt';
 var totalPesos = '#totalPesos';
 
@@ -58,18 +56,49 @@ var pago = '#pago';
 var Rdescr = '#Rdescripcion';
 var Rcant = '#Rcantidad';
 var RprecUnit = '#RprecUnit';
-var RprecTotal = '#RprecTotal';
 var RtotalArt = '#RtotalArt';
 var RtotalPesos = '#RtotalPesos';
 
 var envioR = '#envioR';
 var pagoR = '#pagoR';
 
+var getData = function () {
+  var name = $$('#nomAp').val();
+  var email = $$('#mailCons').val();
+  var celu = $$('#tel').val();
+
+  if (name == "") {
+      $$('#nomAp').focus();
+  } else {
+        if (email == "") {
+          $$('#mailCons').focus();
+      } else {
+        if (celu == "") {
+          $$('#tel').focus();
+      } else {
+        console.log(name);
+        console.log(email);
+        console.log(celu);
+
+        name = "";
+        email = "";
+        celu = "";
+      }
+      }
+  }
+  mainView.router.navigate('/index/');
+
+
+}
+
 // Option 1. Using one 'page:init' handler for all pages
 $$(document).on('page:init', function (e) {
     // Do something here when page loaded and initialized
     console.log(e);
    $$('#agregar1').on('click', fnAgregaProducto);
+   $$('#confirmar').on('click', fnConfirmarPedido);
+
+
 
 })
 
@@ -79,19 +108,12 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
   
 })
 
-// Option 2. Using live 'page:init' event handlers for each page
-$$(document).on('page:init', '.page[data-name="carrito"]', function (e) {
-    // Do something here when page with data-name="about" attribute loaded and initialized
-    console.log(e);
-   $$('#confirmar').on('click', fnConfirmarPedido)
-})
 
 // Option 2. Using live 'page:init' event handlers for each page
 $$(document).on('page:init', '.page[data-name="busqueda"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
 
-  
   
 })
 
@@ -224,14 +246,10 @@ $$(document).on('page:init', '.page[data-name="registro"]', function (e) {
   $$('#registro').on('click', fnNuevoUsuario)
 })
 // Option 2. Using live 'page:init' event handlers for each page
-$$(document).on('page:init', '.page[data-name="mispedidos"]', function (e) {
-  // Do something here when page with data-name="about" attribute loaded and initialized
-  console.log(e);
-})
-// Option 2. Using live 'page:init' event handlers for each page
 $$(document).on('page:init', '.page[data-name="sucursales"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
+
 })
 // Option 2. Using live 'page:init' event handlers for each page
 $$(document).on('page:init', '.page[data-name="iniciar"]', function (e) {
@@ -508,19 +526,18 @@ function fnAgregaProducto() {
 
   
   $$(descr).append(producto + "<br>");
-  $$(cant).append(cantidad+= + "<br>");
+  $$(cant).append(cantidad + "<br>");
   $$(precUnit).append(precio + "<br>");
-  $$(precTotal).append(cantidad * precio + "<br>");
 
-  canTotal = $$(totalArt).val();
-  canTotal+= cantidad;
+  canTotal = parseInt($$(totalArt).text());
+  canTotal+= (cantidad);
   $$(totalArt).html(canTotal);
-  console.log(canTotal);
+  //console.log(canTotal);
 
-  pesosTotal = $$(totalPesos).val();
-  pesosTotal+= (cantidad * precio);
-  $$(totalPesos).text(pesosTotal);
-  console.log(pesosTotal);
+  pesosTotal = parseInt($$(totalPesos).text());
+  pesosTotal+= parseInt((cantidad * precio));
+  $$(totalPesos).html(pesosTotal);
+  //console.log(pesosTotal);
 
 }
 
@@ -550,7 +567,7 @@ function fnNuevoUsuario() {
   
           colUsuarios.doc(email).set(datosUsuario)
               .then(function() {     // .then((docRef) => {
-                console.log("BD OK!");
+                console.log("Usuario Registrado!");
               mainView.router.navigate('/iniciar/');
 
               })
@@ -568,7 +585,7 @@ function fnNuevoUsuario() {
   
           if (errorCode == "auth/email-already-in-use") {
               console.error("el mail ya esta usado");
-              $$('#mail').html("el mail ya esta usado");
+              alert("el mail ya esta usado");
           }
   
           // ..
@@ -578,7 +595,6 @@ function fnNuevoUsuario() {
   
   }
   
-
 
 function fnIngresoUsuario() {
   
@@ -590,23 +606,29 @@ function fnIngresoUsuario() {
         // Signed in
         var user = userCredential.user;
 
+
         console.log("Bienvenid@!!! " + email);
         // traer los datos de la base de datos de ESTE usuario en particular
 
         docRef = colUsuarios.doc(email)
 
-            docRef.get(user).then((doc) => {
+            docRef.get().then((doc) => {
                 if (doc.exists) {
                     console.log("Document data:", doc.data());
                     nombre = doc.data().nombre;
                     apellido = doc.data().apellido;
                     tipoUsuario = doc.data().tipoUsuario;
 
-                    mainView.router.navigate('/index/');
-                    fnSacaBoton
+                    if (email == "Usuario") {
+                      console.log("Bienvenid@!!! " + email);
+                      fnSacaBoton();
+                      mainView.router.navigate('/cuenta/');
+                    } else {
+                      console.log('Entro el admin');
+                    }
                 } else {
                     // doc.data() will be undefined in this case
-                    console.log("Debes registrarte para iniciar sesión");
+                    alert("Debes registrarte para iniciar sesión");
                     mainView.router.navigate('/registro/');
                 }
             }).catch((error) => {
@@ -623,7 +645,6 @@ function fnIngresoUsuario() {
             console.error(errorMessage);
             $$('#mailLog').html(errorMessage);
       });  
-      fnSacaBoton();
 }
 
 function fnSacaBoton() {
@@ -633,18 +654,20 @@ function fnSacaBoton() {
 function fnConfirmarPedido() {
   console.log('Entramos a la funcion')
 
+  mainView.router.navigate('/resumen/');
+
+
   $$(Rdescr).append($$(descr).val());
   $$(Rcant).append($$(cant).val());
   $$(RprecUnit).append($$(precUnit).val());
   $$(RprecTotal).append($$(precTotal).val());
   $$(RtotalArt).html($$(totalArt).val());
   $$(RtotalPesos).html($$(RtotalPesos).val());
-  $$(envioR).html($$(envio).change());
-  $$(pagoR).html($$(pago).change());
+  $$(envioR).html($$(envio).smartSelect.getValue());
+  $$(pagoR).html($$(pago).smartSelect.getValue());
   console.log(envio);
   console.log(pago);
 
-  mainView.router.navigate('/resumen/');
 
 }
 
@@ -669,5 +692,9 @@ function fnVolverInicio() {
   $$('#pagoR').text("");
   
   mainView.router.navigate('/index/');
+
+}
+
+function fnbusqueda(){
 
 }

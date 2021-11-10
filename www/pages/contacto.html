@@ -20,7 +20,7 @@
                 <div class="item-inner">
                   <div class="item-title item-floating-label">Nombre y apellido</div>
                   <div class="item-input-wrap">
-                    <input type="text" placeholder="Tu nombre y apellido" />
+                    <input type="text" name="name" id="nomAp" placeholder="Tu nombre y apellido" />
                     <span class="input-clear-button"></span>
                   </div>
                 </div>
@@ -32,7 +32,7 @@
                 <div class="item-inner">
                   <div class="item-title item-floating-label">E-mail</div>
                   <div class="item-input-wrap">
-                    <input type="email" placeholder="Tu e-mail" />
+                    <input type="email" name="email" id="mailCons" placeholder="Tu e-mail" />
                     <span class="input-clear-button"></span>
                   </div>
                 </div>
@@ -44,7 +44,7 @@
                 <div class="item-inner">
                   <div class="item-title item-floating-label">Teléfono</div>
                   <div class="item-input-wrap">
-                    <input type="tel" placeholder="Tu número" />
+                    <input type="tel" name="telefono" id="tel" placeholder="Tu número" />
                     <span class="input-clear-button"></span>
                   </div>
                 </div>
@@ -64,8 +64,8 @@
             </ul>
           </div>
           <div class="block block-strong">
-            <a href="/index/"><button class="button button-large button-fill button-preloader ${isLoading ? 'button-loading' : ''}"
-              @click=${load} style="background-color: orange; color: yellow;">
+            <a href="#"><button id="consultar" class="button button-large button-fill button-preloader ${isLoading ? 'button-loading' : ''}"
+              @click=${load} style="background-color: orange; color: yellow;" onclick="getData()">
               <span class="preloader"></span>
               <span>Enviar consulta</span>
             </button></a>

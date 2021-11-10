@@ -138,6 +138,7 @@
 .ofertas > .col-50 > img {width: 70%; height: 70%; margin: 3% 15%;}
 .titulo {text-align: center;}
 
+
   .demo-swiper.demo-swiper-auto .swiper-slide {
     width: 85%;
   }
@@ -156,9 +157,9 @@
 }
 section{
   overflow: auto;
-  margin-left: 3%;
+  margin: 1%;
   padding: 1%;
-  max-width: 90%;
+  max-width: 95%;
   background-color: rgb(219, 207, 207);
 }
 .categorias > a{
@@ -205,4 +206,13 @@ section{
   margin: 2% 5%;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 
+}.panel {
+  overflow: scroll;
+  width: 350px;
+}
+.carrito{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
 }

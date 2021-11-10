@@ -31,10 +31,50 @@
     <!-- Path to your custom app styles-->
     <link rel="stylesheet" href="css/app.css">
    <!-- <link rel="stylesheet" href="css/style.css">-->
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-core.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-service.js" type="text/javascript" charset="utf-8"></script>
+
 </head>
 
 <body>
     <div id="app">
+        <div class="panel panel-left panel-cover panel-init">
+
+            <div class="block">
+                <section>
+                    <div class="carrito">
+                        <div><h4 id="descripcion"></h4></div>
+                        <div><h4 id="cantidad"></h4></div>
+                        <div><h4 id="precUnit"></h4></div>
+                    </div>
+                    <hr style="width: 85%;"> <br><br><br>
+                    <b><h4>Totales</h4></b> <br>
+                    <u>Total cantidad de artículos:</u> <b><span id="totalArt">0</span></b> <br> <br>
+                    <u>Total en pesos:</u><b>$ <span id="totalPesos">0</span></b>
+                </section>
+                <br><br><br>
+                <label class="label1">Forma de envío/retiro:</label> <br>
+                <select name="selRange" class="select" id="envio"><option value="A domicilio">A domicilio</option>
+                                                                <option value="Retiro en sucursal">Retiro en sucursal</option>
+                </select>
+        
+                <br><br><br>
+                <label class="label1">Forma de pago:</label> <br>
+                <select name="selRange" class="select" id="pago"><option value="Efectivo al recibir/retirar">Efectivo al recibir/retirar</option>
+                                                                <option value="Tarjeta de crédito/débito">Tarjeta de crédito/débito</option>
+                                                                <option value="Billetera Santa Fe">Billetera Santa Fe</option>
+                                                                <option value="Cuenta Corriente">Cuenta Corriente</option>
+                </select> <br><br><br>
+        
+                <div class="block block-strong">
+                    <button id="confirmar" class="boton col button button-fill button-preloader ${isLoading ? 'button-loading' : ''}"
+                        @click=${load} style="background-color: orange; color: yellow; font-family: Verdana, Geneva, Tahoma, sans-serif; text-align: center;" onclick="">
+                        <span class="preloader"></span>
+                        <span>Confirmar Pedido</span>
+                    </button>
+                </div>
+            </div>
+        </div>
         <!-- Statusbar overlay -->
         <div class="statusbar"></div>
     
@@ -56,9 +96,10 @@
                     <!-- Toolbar -->
                     <div class="toolbar toolbar-bottom">
                         <!-- Toolbar links -->
-                            <div class="menu">
+                           <div class="menu">
                                 <a href="/index/"><img src="img/icons/home.png" alt=""></a>
-                                <a href="/carrito/"><img src="img/icons/carritocompras.png" alt=""></a>
+                                <a href="#" data-panel=".panel-left" class="panel-open">
+                                    <img src="img/icons/carritocompras.png" alt=""></a>
                                 <a href="/busqueda/"><img src="img/icons/buscar.png" alt=""></a>
                                 <a href="/categorias/"><img src="img/icons/opciones.png" alt=""></a>
                                 <a href="/cuenta/"><img src="img/icons/cuenta.png" alt=""></a>
@@ -100,8 +141,10 @@
                                 </div>
 
                                 <div class="titulo">
-                                    <u><h2>OFERTAS SEMANALES</h2></u>
+                                    <u><h2 class="tittle">OFERTAS SEMANALES</h2></u>
                                 </div>
+                                <div id="ofertas" class="row"> </div>
+                                <!--
                                 <div class="ofertas row">
                                     <div class="col-50">
                                         <img src="img/ofertas/oferta1.jpg" alt="">
@@ -119,7 +162,7 @@
                                             <button class="boton col button button-fill" id="agregar1">Agregar a carrito</button>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
