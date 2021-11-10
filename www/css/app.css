@@ -122,8 +122,8 @@
   border-radius: 15px;
 }
 .label1{
-  margin: 1% 15%;
-  padding: 0.5%;
+  margin: 2%;
+  padding: 1%;
   text-align: center;
   font: bold;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -206,7 +206,8 @@ section{
   margin: 2% 5%;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 
-}.panel {
+}
+.panel {
   overflow: scroll;
   width: 350px;
 }
@@ -215,4 +216,11 @@ section{
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+}
+.row{
+  align-items: center;
+}
+.span {
+  margin: 1%; 
+  padding: 1%;
 }

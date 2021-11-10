@@ -105,7 +105,8 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   crearCategorias();
   $$('#confirmar').on('click', fnConfirmarPedido);
-  
+  $$('#registro').on('click', fnNuevoUsuario);
+  fnbusqueda;
 })
 
 
@@ -114,6 +115,7 @@ $$(document).on('page:init', '.page[data-name="busqueda"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
 
+    fnbusqueda;
   
 })
 
@@ -259,6 +261,7 @@ $$(document).on('page:init', '.page[data-name="iniciar"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
   $$('#inSes').on('click', fnIngresoUsuario);
+  $$('#inSes').on('click', fnSacaBoton);
 })
 
 
@@ -519,7 +522,7 @@ colProductos.doc(dameUnID).set(datos);
 var micarrito = []
 function fnAgregaProducto() {
 
-    console.log('Entramos en la funcion');
+   // console.log('Entramos en la funcion');
  
   producto = n;
   precio = p;
@@ -598,12 +601,63 @@ function fnNuevoUsuario() {
   
   }
   
-
+var nombre, apellido, email, tipoUsuario;
 function fnIngresoUsuario() {
   
   var email = $$('#mailLog').val();
   var password = $$('#passwLog').val();
 
+  firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            // Signed in
+            var user = userCredential.user;
+
+            console.log("Bienvenid@!! " + email);
+            // traer los datos de la base de datos de ESTE usuario en particular
+
+            docRef = coleccionUsuarios.doc(email);
+
+            docRef
+                .get()
+                .then((doc) => {
+                    if (doc.exists) {
+                        console.log("Document data:", doc.data());
+                        nombre = doc.data().nombre;
+                        apellido = doc.data().apellido;
+                        direccion = doc.data().direccion;
+                        tipoUsuario = doc.data().tipoUsuario;
+
+                        if (tipoUsuario == "Usuario") {
+                            console.log("anda para Usuario");
+                            fnSacaBoton();
+                            mainView.router.navigate("/cuenta/");
+                        } else {
+                            console.log("anda para Admin");
+                        }
+                    } else {
+                        // doc.data() will be undefined in this case
+                        alert("Debes registrarte para iniciar sesión");
+                        mainView.router.navigate('/registro/');
+                    }
+                })
+                .catch((error) => {
+                    console.log("Error getting document:", error);
+                });
+        })
+        .catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+
+            console.error(errorCode);
+            console.error(errorMessage);
+            $$("#msgErrorLogin").html(errorMessage);
+        });
+      
+}
+
+  /*
   firebase.auth().signInWithEmailAndPassword(email, password)
       .then((userCredential) => {
         // Signed in
@@ -647,8 +701,7 @@ function fnIngresoUsuario() {
         console.error(errorCode);
             console.error(errorMessage);
             $$('#mailLog').html(errorMessage);
-      });  
-}
+      });  */
 
 function fnSacaBoton() {
   $$('#ocultar').removeClass('visible').addClass('oculto');
@@ -666,9 +719,9 @@ function fnLlenarResumen() {
     retiroMercaderia = $$('#envio').val();
     formaDePago = $$('#pago').val();
     var productoParaAgregar=`  
-    <div class="col-33"><h4 id="Rdescripcion">${producto.nombre}</h4></div>
-    <div class="col-33"><h4 id="Rcantidad">${producto.cantidad}</h4></div>
-    <div class="col-33"><h4 id="RprecUnit">${producto.precio}</h4></div>`
+    <div><h4 id="Rdescripcion">${producto.nombre}</h4></div>
+    <div><h4 id="Rcantidad">${producto.cantidad}</h4></div>
+    <div><h4 id="RprecUnit">${producto.precio}</h4></div>`
 
     //algo como: id. append
     $$('#resumenPedido').append(productoParaAgregar);
@@ -724,5 +777,37 @@ function fnVolverInicio() {
 }
 
 function fnbusqueda(){
-
+  console.log("busqueda");
+    colProductos
+        .orderBy("nombre")
+        .get()
+        .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                var linkproducto = `<li class="item-content">
+                    <div class="item-inner">
+                        <div class="item-title">${doc.data().nombre}</div>
+                        <div class="item-after">
+                            <a href="/categoria/${doc.id}">
+                                <i class="icon f7-icons color-red">eye</i>
+                            </a>
+                        </div>
+                    </div>
+                </li>`;
+                $$("#select-productos").append(linkproducto);
+            });
+        })
+        .catch(function (error) {
+            console.log("Error getting documents: ", error);
+        });
 }
+
+searchbar = app.searchbar.create({
+  el: ".searchbar",
+  searchContainer: ".list",
+  searchIn: ".item-title",
+  on: {
+      search(sb, query, previousQuery) {
+          console.log(query, previousQuery);
+      },
+  },
+});
