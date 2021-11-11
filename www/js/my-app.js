@@ -26,6 +26,7 @@ var app = new Framework7({
       {path: '/sucursales/', url: 'pages/sucursales.html',},
       {path: '/contacto/', url: 'pages/contacto.html',},
       {path: '/registro/', url: 'pages/registro.html',} ,
+      {path: '/mispedidos/', url: 'pages/mispedidos.html',} ,
       {path: '/categoria/:id/', url: 'pages/categoria.html',},
      
     ]
@@ -106,7 +107,9 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
   crearCategorias();
   $$('#confirmar').on('click', fnConfirmarPedido);
   $$('#registro').on('click', fnNuevoUsuario);
-  fnbusqueda;
+  $$('#search2').on('click', fnbusqueda());  
+  $$('#confirmar').on('click', fnultimoPedido());
+
 })
 
 
@@ -115,8 +118,7 @@ $$(document).on('page:init', '.page[data-name="busqueda"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
 
-    fnbusqueda;
-  
+    $$('#search').on('click', fnbusqueda());  
 })
 
 
@@ -240,9 +242,9 @@ $$(document).on('page:init', '.page[data-name="resumen"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
  // console.log(e);
   $$('#volver').on('click', fnVolverInicio);
-  console.log('estoy por llenar el resumen')
+  //console.log('estoy por llenar el resumen')
   fnLlenarResumen();
-  
+
 })
 // Option 2. Using live 'page:init' event handlers for each page
 $$(document).on('page:init', '.page[data-name="registro"]', function (e) {
@@ -255,6 +257,13 @@ $$(document).on('page:init', '.page[data-name="sucursales"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
 
+})
+// Option 2. Using live 'page:init' event handlers for each page
+$$(document).on('page:init', '.page[data-name="mispedidos"]', function (e) {
+  // Do something here when page with data-name="about" attribute loaded and initialized
+  console.log(e);
+  console.log('ultimo pedido');
+  fnultimoPedido();
 })
 // Option 2. Using live 'page:init' event handlers for each page
 $$(document).on('page:init', '.page[data-name="iniciar"]', function (e) {
@@ -601,7 +610,6 @@ function fnNuevoUsuario() {
   
   }
   
-var nombre, apellido, email, tipoUsuario;
 function fnIngresoUsuario() {
   
   var email = $$('#mailLog').val();
@@ -718,18 +726,47 @@ function fnLlenarResumen() {
     totalDeArticulos += producto.cantidad;
     retiroMercaderia = $$('#envio').val();
     formaDePago = $$('#pago').val();
-    var productoParaAgregar=`  
+    var productoParaAgregar=`<div><div class="carrito1">
     <div><h4 id="Rdescripcion">${producto.nombre}</h4></div>
     <div><h4 id="Rcantidad">${producto.cantidad}</h4></div>
-    <div><h4 id="RprecUnit">${producto.precio}</h4></div>`
+    <div><h4 id="RprecUnit">${producto.precio}</h4></div></div></div>`
 
     //algo como: id. append
     $$('#resumenPedido').append(productoParaAgregar);
-    $$('#RtotalArt').html(totalDeArticulos);
-    $$('#RtotalPesos').html(totalDeMiCarrito);
+    $$('#RtotalArt').html(parseInt(totalDeArticulos));
+    $$('#RtotalPesos').html(parseInt(totalDeMiCarrito));
     $$('#envioR').html(retiroMercaderia);
     $$('#pagoR').html(formaDePago);
   })
+
+}
+
+
+function fnultimoPedido() {
+  console.log(micarrito);
+  var totalDeMiCarrito = 0;
+  var totalDeArticulos = 0;
+  var retiroMercaderia = "";
+  var formaDePago = "";
+  micarrito.map(function(producto){
+    totalDeMiCarrito += producto.precio;
+    totalDeArticulos += producto.cantidad;
+    retiroMercaderia = $$('#envio').val();
+    formaDePago = $$('#pago').val();
+    var productoParaAgregar=`<div><div class="carrito1">
+    <div><h4>${producto.nombre}</h4></div>
+    <div><h4>${producto.cantidad}</h4></div>
+    <div><h4>${producto.precio}</h4></div></div></div>`
+
+    //algo como: id. append
+    $$('#miPedido').append(productoParaAgregar);
+    $$('#totalPedido').html(totalDeArticulos);
+    $$('#pesosPedido').html(totalDeMiCarrito);
+    $$('#miEnvio').html(retiroMercaderia);
+    $$('#miPago').html(formaDePago);
+  })
+
+
 }
 
 function fnConfirmarPedido() {
@@ -783,31 +820,30 @@ function fnbusqueda(){
         .get()
         .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
-                var linkproducto = `<li class="item-content">
+                var producto = `<li class="item-content">
                     <div class="item-inner">
                         <div class="item-title">${doc.data().nombre}</div>
                         <div class="item-after">
-                            <a href="/categoria/${doc.id}">
-                                <i class="icon f7-icons color-red">eye</i>
+                            <a href="pages/categoria/${doc.id}">
+                                Ver producto
                             </a>
                         </div>
                     </div>
                 </li>`;
-                $$("#select-productos").append(linkproducto);
+                $$("#select-productos").append(producto);
             });
         })
         .catch(function (error) {
             console.log("Error getting documents: ", error);
         });
-}
-
-searchbar = app.searchbar.create({
-  el: ".searchbar",
-  searchContainer: ".list",
-  searchIn: ".item-title",
-  on: {
+        searchbar = app.searchbar.create({
+        el: ".searchbar",
+        searchContainer: ".list",
+        searchIn: ".item-title",
+        on: {
       search(sb, query, previousQuery) {
           console.log(query, previousQuery);
       },
   },
 });
+}

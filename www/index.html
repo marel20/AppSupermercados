@@ -113,15 +113,30 @@
                             <div class="block">
                                 <div>
                                     <form class="searchbar">
-                                    <div class="searchbar-inner">
+                                        <div class="searchbar-inner">
                                             <div class="searchbar-input-wrap">
-                                            <input type="search" placeholder="Buscar producto" />
-                                            <i class="searchbar-icon"></i>
-                                            <span class="input-clear-button"></span>
+                                                <input class type="search" placeholder="Buscar" id="search2" />
+                                                <span class="input-clear-button"></span>
+                                                <button id="searchbtn" class="button button-fill item-link">
+                                                    <i class="material-icons">search</i>
+                                                </button>
                                             </div>
                                             <span class="searchbar-disable-button if-not-aurora">Cancel</span>
                                         </div>
                                     </form>
+                                    <div class="ºhbar-backdrop"></div>
+                                    <div class="list searchbar-backdrop-found"></div>
+                                    <ul>
+                        
+                                        <!--Aca se imprime las busquedas-->
+                        
+                                        <div id="select-productos" class="span"></div>
+                        
+                                    </ul>
+                                </div>
+                                <div class="block searchbar-not-found">
+                                    <div class=block-inner">No hay Coincidencias</div>
+                                </div>
                                 </div>
                                 <div class="beneficios">
                                     <div data-pagination='{"el": ".swiper-pagination"}' data-space-between="50"
