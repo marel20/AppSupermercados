@@ -40,7 +40,8 @@ var colCategorias = db.collection("categorias");
 var colProductos = db.collection("productos");
 var colUsuarios = db.collection("usuarios");
 
-
+var email = "";
+var password = "";
 var n="";
 var p="";
 
@@ -107,7 +108,6 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
   crearCategorias();
   $$('#confirmar').on('click', fnConfirmarPedido);
   $$('#registro').on('click', fnNuevoUsuario);
-  $$('#search2').on('click', fnbusqueda());  
   $$('#confirmar').on('click', fnultimoPedido());
 
 })
@@ -118,7 +118,8 @@ $$(document).on('page:init', '.page[data-name="busqueda"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
 
-    $$('#search').on('click', fnbusqueda());  
+    $$('#search').on('click', fnbusqueda());
+    crearBusqueda();  
 })
 
 
@@ -235,7 +236,7 @@ txtMostrar = '';
 $$(document).on('page:init', '.page[data-name="cuenta"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
-
+  
 })
 // Option 2. Using live 'page:init' event handlers for each page
 $$(document).on('page:init', '.page[data-name="resumen"]', function (e) {
@@ -270,7 +271,7 @@ $$(document).on('page:init', '.page[data-name="iniciar"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
   $$('#inSes').on('click', fnIngresoUsuario);
-  $$('#inSes').on('click', fnSacaBoton);
+
 })
 
 
@@ -608,24 +609,24 @@ function fnNuevoUsuario() {
   
   
   
-  }
+}
   
 function fnIngresoUsuario() {
-  
-  var email = $$('#mailLog').val();
-  var password = $$('#passwLog').val();
 
+  email=$$("#mailLog").val();
+  password=$$("#passwLog").val();
+  console.log(email);
+  console.log(password);
+  
   firebase
         .auth()
         .signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
             // Signed in
             var user = userCredential.user;
-
-            console.log("Bienvenid@!! " + email);
             // traer los datos de la base de datos de ESTE usuario en particular
 
-            docRef = coleccionUsuarios.doc(email);
+            docRef = colUsuarios.doc(email);
 
             docRef
                 .get()
@@ -637,16 +638,12 @@ function fnIngresoUsuario() {
                         direccion = doc.data().direccion;
                         tipoUsuario = doc.data().tipoUsuario;
 
-                        if (tipoUsuario == "Usuario") {
-                            console.log("anda para Usuario");
-                            fnSacaBoton();
-                            mainView.router.navigate("/cuenta/");
-                        } else {
-                            console.log("anda para Admin");
-                        }
+                        console.log("Bienvenid@!! " + email);
+                        mainView.router.navigate("/cuenta/");
+                                      
                     } else {
                         // doc.data() will be undefined in this case
-                        alert("Debes registrarte para iniciar sesión");
+                        console.log("Debes registrarte para iniciar sesión");
                         mainView.router.navigate('/registro/');
                     }
                 })
@@ -662,57 +659,14 @@ function fnIngresoUsuario() {
             console.error(errorMessage);
             $$("#msgErrorLogin").html(errorMessage);
         });
-      
+        fnSacaBoton();
+
 }
 
-  /*
-  firebase.auth().signInWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        // Signed in
-        var user = userCredential.user;
-
-
-        console.log("Bienvenid@!!! " + email);
-        // traer los datos de la base de datos de ESTE usuario en particular
-
-        docRef = colUsuarios.doc(email)
-
-            docRef.get().then((doc) => {
-                if (doc.exists) {
-                    console.log("Document data:", doc.data());
-                    nombre = doc.data().nombre;
-                    apellido = doc.data().apellido;
-                    tipoUsuario = doc.data().tipoUsuario;
-
-                    if (email == "Usuario") {
-                      console.log("Bienvenid@!!! " + email);
-                      fnSacaBoton();
-                      mainView.router.navigate('/cuenta/');
-                    } else {
-                      console.log('Entro el admin');
-                    }
-                } else {
-                    // doc.data() will be undefined in this case
-                    alert("Debes registrarte para iniciar sesión");
-                    mainView.router.navigate('/registro/');
-                }
-            }).catch((error) => {
-                console.log("Error getting document:", error);
-            });
-
-
-      })
-      .catch((error) => {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-
-        console.error(errorCode);
-            console.error(errorMessage);
-            $$('#mailLog').html(errorMessage);
-      });  */
-
 function fnSacaBoton() {
+  console.log('Saque boton');
   $$('#ocultar').removeClass('visible').addClass('oculto');
+  $$('#visualizar').removeClass('oculto').addClass('visible');
 }
 
 function fnLlenarResumen() {
@@ -740,7 +694,6 @@ function fnLlenarResumen() {
   })
 
 }
-
 
 function fnultimoPedido() {
   console.log(micarrito);
@@ -824,7 +777,7 @@ function fnbusqueda(){
                     <div class="item-inner">
                         <div class="item-title">${doc.data().nombre}</div>
                         <div class="item-after">
-                            <a href="pages/categoria/${doc.id}">
+                            <a href="'/categoria/${doc.id}'">
                                 Ver producto
                             </a>
                         </div>
@@ -836,14 +789,17 @@ function fnbusqueda(){
         .catch(function (error) {
             console.log("Error getting documents: ", error);
         });
-        searchbar = app.searchbar.create({
-        el: ".searchbar",
-        searchContainer: ".list",
-        searchIn: ".item-title",
-        on: {
-      search(sb, query, previousQuery) {
-          console.log(query, previousQuery);
-      },
+}
+function crearBusqueda() {
+  console.log('Cree mi barra');
+  searchbar = app.searchbar.create({
+    el: ".searchbar",
+    searchContainer: ".list",
+    searchIn: ".item-title",
+    on: {
+  search(sb, query, previousQuery) {
+      console.log(query, previousQuery);
   },
+},
 });
 }

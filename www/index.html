@@ -12,6 +12,8 @@
         
     <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
     -->
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval'; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src * 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src *; style-src * 'unsafe-inline'; font-src * data: URIs ">
+
     <!-- Required meta tags-->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
@@ -31,6 +33,8 @@
     <!-- Path to your custom app styles-->
     <link rel="stylesheet" href="css/app.css">
    <!-- <link rel="stylesheet" href="css/style.css">-->
+   <!--Logo app-->
+   <link rel="icon" href="img/logo.png" type="logo"/>
     <script src="https://js.api.here.com/v3/3.1/mapsjs-core.js" type="text/javascript" charset="utf-8"></script>
     <script src="https://js.api.here.com/v3/3.1/mapsjs-service.js" type="text/javascript" charset="utf-8"></script>
 
@@ -111,33 +115,6 @@
                         <!-- Scrollable page content -->
                         <div class="page-content">
                             <div class="block">
-                                <div>
-                                    <form class="searchbar">
-                                        <div class="searchbar-inner">
-                                            <div class="searchbar-input-wrap">
-                                                <input class type="search" placeholder="Buscar" id="search2" />
-                                                <span class="input-clear-button"></span>
-                                                <button id="searchbtn" class="button button-fill item-link">
-                                                    <i class="material-icons">search</i>
-                                                </button>
-                                            </div>
-                                            <span class="searchbar-disable-button if-not-aurora">Cancel</span>
-                                        </div>
-                                    </form>
-                                    <div class="ºhbar-backdrop"></div>
-                                    <div class="list searchbar-backdrop-found"></div>
-                                    <ul>
-                        
-                                        <!--Aca se imprime las busquedas-->
-                        
-                                        <div id="select-productos" class="span"></div>
-                        
-                                    </ul>
-                                </div>
-                                <div class="block searchbar-not-found">
-                                    <div class=block-inner">No hay Coincidencias</div>
-                                </div>
-                                </div>
                                 <div class="beneficios">
                                     <div data-pagination='{"el": ".swiper-pagination"}' data-space-between="50"
                                         class="swiper-container swiper-init demo-swiper">

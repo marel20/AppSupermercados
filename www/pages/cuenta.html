@@ -1,29 +1,35 @@
 <!-- We don't need a full layout in this file because this page will be parsed with Ajax.  -->
 <div class="page" data-name="cuenta">
-     <div class="page-content">
-          <div class="navbar">
-            <div class="navbar-inner sliding">
-              <div class="left">
-                  <a href="#" class="link back">
-                  <i class="icon icon-back"></i>
-                  <span class="ios-only">Back</span>
-                  </a>
-              </div>
+  <div class="page-content">
+      <div class="navbar">
+          <div class="navbar-inner sliding">
+            <div class="left">
+                <a href="#" class="link back">
+                <i class="icon icon-back"></i>
+                <span class="ios-only">Back</span>
+                </a>
             </div>
-        </div>
-        <div class="list links-list">
-            <ul>
-              <li><a href="/mispedidos/">Mi Pedido</a></li>
-              <li><a href="/sucursales/">Sucursales</a></li>
-              <li><a href="/contacto/">Contacto</a></li>
-            </ul>
-        </div>
-        <div id="ocultar" class="visible block block-strong">
+          </div>
+      </div>
+      <div class="list links-list">
+          <ul>
+            <li><a href="/mispedidos/">Mi Pedido</a></li>
+            <li><a href="/sucursales/">Sucursales</a></li>
+            <li><a href="/contacto/">Contacto</a></li>
+          </ul>
+      </div>
+      
+      <div>
+        <div id="visualizar" class="oculto"></div>
+
+
+          <div id="ocultar" class="visible block block-strong">
             <a href="/iniciar/"><button id="iniciar" class="button button-large button-fill button-preloader ${isLoading ? 'button-loading' : ''}"
               @click=${load} style="background-color: orange; color: yellow; font-family: Verdana, Geneva, Tahoma, sans-serif;">
               <span class="preloader"></span>
               <span>Iniciar Sesión</span>
             </button></a>
-          </div>
-    </div>
+         </div>
+      </div>
+  </div>
 </div>
