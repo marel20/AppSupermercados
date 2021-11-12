@@ -120,6 +120,7 @@ $$(document).on('page:init', '.page[data-name="busqueda"]', function (e) {
 
     $$('#search').on('click', fnbusqueda());
     crearBusqueda();  
+    $$('#agregar2').on('click', fnAgregaProducto);
 })
 
 
@@ -244,6 +245,7 @@ $$(document).on('page:init', '.page[data-name="resumen"]', function (e) {
  // console.log(e);
   $$('#volver').on('click', fnVolverInicio);
   //console.log('estoy por llenar el resumen')
+  $$('#volver').on('click', fnultimoPedido);
   fnLlenarResumen();
 
 })
@@ -264,7 +266,7 @@ $$(document).on('page:init', '.page[data-name="mispedidos"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
   console.log('ultimo pedido');
-  fnultimoPedido();
+  $$('#confirmar').on('click', fnultimoPedido());
 })
 // Option 2. Using live 'page:init' event handlers for each page
 $$(document).on('page:init', '.page[data-name="iniciar"]', function (e) {
@@ -529,7 +531,8 @@ colProductos.doc(dameUnID).set(datos);
   */
 }
 
-var micarrito = []
+var micarrito = [];
+var miUltimoCarrito = [];
 function fnAgregaProducto() {
 
    // console.log('Entramos en la funcion');
@@ -692,34 +695,30 @@ function fnLlenarResumen() {
     $$('#envioR').html(retiroMercaderia);
     $$('#pagoR').html(formaDePago);
   })
-
 }
 
 function fnultimoPedido() {
-  console.log(micarrito);
-  var totalDeMiCarrito = 0;
-  var totalDeArticulos = 0;
-  var retiroMercaderia = "";
-  var formaDePago = "";
-  micarrito.map(function(producto){
-    totalDeMiCarrito += producto.precio;
-    totalDeArticulos += producto.cantidad;
-    retiroMercaderia = $$('#envio').val();
-    formaDePago = $$('#pago').val();
-    var productoParaAgregar=`<div><div class="carrito1">
-    <div><h4>${producto.nombre}</h4></div>
-    <div><h4>${producto.cantidad}</h4></div>
-    <div><h4>${producto.precio}</h4></div></div></div>`
+  console.log(miUltimoCarrito);
+  var totalPedido = 0;
+  var pesosPedido = 0;
+  var envioPedido = "";
+  var pagoPedido = "";
+  miUltimoCarrito.map(function(producto){
+    totalPedido += producto.cantidad;
+    pesosPedido += producto.precio;
+    envioPedido = $$('#envio').val();
+    pagoPedido = $$('#pago').val();
+    var pedidoTotal = `<div><div class="carrito1">
+    <div><h4 id="Rdescripcion">${producto.nombre}</h4></div>
+    <div><h4 id="Rcantidad">${producto.cantidad}</h4></div>
+    <div><h4 id="RprecUnit">${producto.precio}</h4></div></div></div>`
 
-    //algo como: id. append
-    $$('#miPedido').append(productoParaAgregar);
-    $$('#totalPedido').html(totalDeArticulos);
-    $$('#pesosPedido').html(totalDeMiCarrito);
-    $$('#miEnvio').html(retiroMercaderia);
-    $$('#miPago').html(formaDePago);
+    $$('#miPedido').append(pedidoTotal);
   })
-
-
+  $$('#totalPedido').html(totalPedido);
+  $$('#pesosPedido').html(pesosPedido);
+  $$('miEnvio').html(envioPedido);
+  $$('miPago').html(pagoPedido);
 }
 
 function fnConfirmarPedido() {
@@ -761,6 +760,8 @@ function fnVolverInicio() {
   $$('#RtotalPesos').text(0);
   $$('#envioR').text("");
   $$('#pagoR').text("");
+  miUltimoCarrito = micarrito;
+  micarrito = [];
   
   mainView.router.navigate('/index/');
 
@@ -777,9 +778,21 @@ function fnbusqueda(){
                     <div class="item-inner">
                         <div class="item-title">${doc.data().nombre}</div>
                         <div class="item-after">
-                            <a href="'/categoria/${doc.id}'">
-                                Ver producto
-                            </a>
+                        <div class="block-strong visible">
+                        <button class="boton col button button-fill" id="agregar2" onClick="fnAgregaProducto">
+                        <img src="img/icons/carritocompras.png"></button>
+                        </div></div>
+                        <div class="row margin-top oculto">
+                          <div class="col">
+                            <div class="stepper stepper-small stepper-fill stepper-round stepper-init color-orange">
+                                  <div class="stepper-button-minus"></div>
+                                      <div class="stepper-input-wrap">
+                                          <input type="text" value="0" min="0" max="100" step="1" readonly />
+                                      </div>
+                                  <div class="stepper-button-plus"></div>
+                              </div>
+                          </div>
+                      </div>
                         </div>
                     </div>
                 </li>`;
