@@ -98,6 +98,8 @@ $$(document).on('page:init', function (e) {
     // Do something here when page loaded and initialized
     //console.log(e);
    $$('#agregar1').on('click', fnAgregaProducto);
+   $$('#agregar2').on('click', fnAgregaProducto);
+   //crearBusqueda;  
 
 
 
@@ -108,7 +110,7 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
   crearCategorias();
   $$('#confirmar').on('click', fnConfirmarPedido);
   $$('#registro').on('click', fnNuevoUsuario);
-  $$('#confirmar').on('click', fnultimoPedido());
+  $$('#confirmar').on('click', fnultimoPedido);
 
 })
 
@@ -118,9 +120,10 @@ $$(document).on('page:init', '.page[data-name="busqueda"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
 
-    $$('#search').on('click', fnbusqueda());
-    crearBusqueda();  
-    $$('#agregar2').on('click', fnAgregaProducto);
+  
+  $$('#search').on('click', fnbusqueda);
+  crearBusqueda();
+  $$('#agregar2').on('click', fnAgregaProducto);
 })
 
 
@@ -129,7 +132,6 @@ $$(document).on('page:init', '.page[data-name="categoria"]', function (e, page) 
   console.log(e);
   console.log('Pag. Categoria con id: ' + page.route.params.id );
   idCategoria = "" + page.route.params.id;
- 
   
 
   listaProductos = '';
@@ -163,7 +165,7 @@ $$(document).on('page:init', '.page[data-name="categoria"]', function (e, page) 
               </div>
           </div>`;
         });
-
+        //$$('#nombreCategoria').html(cat);
         $$('#listaProductos').append(listaProductos); 
         $$('#agregar1').on('click', fnAgregaProducto);
 
@@ -246,7 +248,7 @@ $$(document).on('page:init', '.page[data-name="resumen"]', function (e) {
   $$('#volver').on('click', fnVolverInicio);
   //console.log('estoy por llenar el resumen')
   $$('#volver').on('click', fnultimoPedido);
-  fnLlenarResumen();
+  fnLlenarResumen;
 
 })
 // Option 2. Using live 'page:init' event handlers for each page
@@ -266,7 +268,7 @@ $$(document).on('page:init', '.page[data-name="mispedidos"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
   console.log('ultimo pedido');
-  $$('#confirmar').on('click', fnultimoPedido());
+  $$('#confirmar').on('click', fnultimoPedido);
 })
 // Option 2. Using live 'page:init' event handlers for each page
 $$(document).on('page:init', '.page[data-name="iniciar"]', function (e) {
@@ -283,8 +285,6 @@ $$(document).on('page:init', '.page[data-name="iniciar"]', function (e) {
 /*Mis Funciones*/
 
 function crearCategorias() {
-  
-  
   
   console.log("creando categorias");
   dameUnID = "1";   datos = { categoria: "Comestibles", grupo: "Almacen" };
@@ -641,13 +641,15 @@ function fnIngresoUsuario() {
                         direccion = doc.data().direccion;
                         tipoUsuario = doc.data().tipoUsuario;
 
+                        fnSacaBoton;
+
                         console.log("Bienvenid@!! " + email);
                         mainView.router.navigate("/cuenta/");
+
                                       
                     } else {
                         // doc.data() will be undefined in this case
                         console.log("Debes registrarte para iniciar sesión");
-                        mainView.router.navigate('/registro/');
                     }
                 })
                 .catch((error) => {
@@ -660,10 +662,10 @@ function fnIngresoUsuario() {
 
             console.error(errorCode);
             console.error(errorMessage);
-            $$("#msgErrorLogin").html(errorMessage);
-        });
-        fnSacaBoton();
+            $$("#msgErrorLogin").html("Debes registrarte para iniciar sesión");
+            mainView.router.navigate('/registro/');
 
+        });
 }
 
 function fnSacaBoton() {
@@ -691,10 +693,11 @@ function fnLlenarResumen() {
     //algo como: id. append
     $$('#resumenPedido').append(productoParaAgregar);
     $$('#RtotalArt').html(parseInt(totalDeArticulos));
-    $$('#RtotalPesos').html(parseInt(totalDeMiCarrito));
+    $$('#RtotalPesos').html(totalDeMiCarrito);
     $$('#envioR').html(retiroMercaderia);
     $$('#pagoR').html(formaDePago);
   })
+  emailSucursal;
 }
 
 function fnultimoPedido() {
@@ -774,12 +777,16 @@ function fnbusqueda(){
         .get()
         .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
+
+              n=doc.data().nombre;
+              p=doc.data().precio;
+
                 var producto = `<li class="item-content">
                     <div class="item-inner">
-                        <div class="item-title">${doc.data().nombre}</div>
+                        <div class="item-title">${doc.data().nombre}<br><h4>$${doc.data().precio}</h4></div>
                         <div class="item-after">
                         <div class="block-strong visible">
-                        <button class="boton col button button-fill" id="agregar2" onClick="fnAgregaProducto">
+                        <button class="boton col button button-fill" id="agregar2">
                         <img src="img/icons/carritocompras.png"></button>
                         </div></div>
                         <div class="row margin-top oculto">
@@ -797,12 +804,14 @@ function fnbusqueda(){
                     </div>
                 </li>`;
                 $$("#select-productos").append(producto);
+                $$('#agregar2').on('click', fnAgregaProducto);
             });
         })
         .catch(function (error) {
             console.log("Error getting documents: ", error);
         });
 }
+
 function crearBusqueda() {
   console.log('Cree mi barra');
   searchbar = app.searchbar.create({
@@ -815,4 +824,17 @@ function crearBusqueda() {
   },
 },
 });
+}
+
+function emailSucursal() {
+  console.log('Seleccione email');
+  var sucursal = $$('#suc').val();
+  var sucCorrea = $$('#corr').val();
+
+  if (sucursal == sucCorrea) {
+    console.log('Mail sucursal Correa');
+    
+  } else {
+    console.log('Mail sucursal Cañada');    
+  }
 }

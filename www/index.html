@@ -25,7 +25,7 @@
     <meta name="color-scheme" content="light dark">
 
     <!-- Your app title -->
-    <title>Bienvenidos!</title>
+    <title>Supermercado Supersol</title>
     <!-- Path to Framework7 Library CSS -->
     <link rel="stylesheet" href="lib/framework7/framework7-bundle.min.css">
     <!-- Path to icons -->
@@ -46,10 +46,24 @@
 
             <div class="block">
                 <section>
-                    <div class="carrito">
-                        <div><h4 id="descripcion"></h4></div>
-                        <div><h4 id="cantidad"></h4></div>
-                        <div><h4 id="precUnit"></h4></div>
+                    <div>
+                        <div class="carrito">
+                            <div><h4 id="descripcion"></h4></div>
+                            <div><h4 id="cantidad"></h4></div>
+                            <div><h4 id="precUnit"></h4></div>
+                        </div>
+                        <!--BOTON PARA CANTIDADES, MAS ADELANTE
+                            <div class="col">
+            <small>Round Fill</small>
+            <div class="stepper stepper-fill stepper-round stepper-init">
+              <div class="stepper-button-minus"></div>
+              <div class="stepper-input-wrap">
+                <input type="text" value="0" min="0" max="100" step="1" readonly />
+              </div>
+              <div class="stepper-button-plus"></div>
+            </div>
+          </div>
+        </div>-->
                     </div>
                     <hr style="width: 85%;"> <br><br><br>
                     <b><h4>Totales</h4></b> <br>
@@ -90,9 +104,9 @@
                         <div class="navbar-bg"></div>
                         <div class="navbar-inner nav">
                             <a href="/index/"><img style="width: 60px; height: 60px;" src="img/logo.png" alt="logo"></a>
-                            <select name="select" class="selectsucursales">
-                                <option value="value1">Sucursal: Correa</option>
-                                <option value="value2">Sucursal: Cañada de Gómez</option>
+                            <select id="suc" name="select" class="selectsucursales">
+                                <option id="corr" value="Correa">Sucursal: Correa</option>
+                                <option id="cdg" value="Cañada de Gómez">Sucursal: Cañada de Gómez</option>
                             </select>
                         </div>
                     </div>

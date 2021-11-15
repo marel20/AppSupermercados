@@ -20,7 +20,13 @@
       </div>
       
       <div>
-        <div id="visualizar" class="oculto"></div>
+        <div id="visualizar" class="oculto">
+          <a href="/index/"><button id="iniciar" class="button button-large button-fill button-preloader ${isLoading ? 'button-loading' : ''}"
+            @click=${load} style="background-color: orange; color: yellow; font-family: Verdana, Geneva, Tahoma, sans-serif;">
+            <span class="preloader"></span>
+            <span>Cerrar Sesión</span>
+          </button></a>
+        </div>
 
 
           <div id="ocultar" class="visible block block-strong">
