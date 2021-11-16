@@ -27,31 +27,30 @@
     <allow-navigation href="*" />
 
     <platform name="android">
-      <preference name="StatusBarOverlaysWebView" value="false" />
-      <preference name="phonegap-version" value="cli-7.1.0" />
-      <preference name="AndroidPersistentFileLocation" value="Compatibility" />
-      <preference name="android-minSdkVersion" value="22" />
-      <preference name="android-targetSdkVersion" value="29" />
-      <preference name="SplashMaintainAspectRatio" value="true" />
-      <preferance name="android-usesCleartextTraffic" value="true" />
-      <preference name="android.permission.INTERNET" value="none" />
-      <preference name="android.permission.MEDIA_CONTENT_CONTROL" value="none" />
-      <splash density="land-hdpi" src="res/screen/android/drawable-hdpi/screen.png" />
-      <splash density="land-mdpi" src="res/screen/android/drawable-mdpi/screen.png" />
-      <splash density="land-xhdpi" src="res/screen/android/drawable-xhdpi/screen.png" />
-      <splash density="land-xxhdpi" src="res/screen/android/drawable-xxhdpi/screen.png" />
-      <splash density="land-xxxhdpi" src="res/screen/android/drawable-xxxhdpi/screen.png" />
-      <splash density="port-hdpi" src="res/screen/android/drawable-hdpi/screen.png" />
-      <splash density="port-mdpi" src="res/screen/android/drawable-mdpi/screen.png" />
-      <splash density="port-xhdpi" src="res/screen/android/drawable-xhdpi/screen.png" />
-      <splash density="port-xxhdpi" src="res/screen/android/drawable-xxhdpi/screen.png" />
-      <splash density="port-xxxhdpi" src="res/screen/android/drawable-xxxhdpi/screen.png" />
-      <icon density="ldpi" src="res/icon/android/mipmap-ldpi/ic_launcher.png" />
-      <icon density="mdpi" src="res/icon/android/mipmap-mdpi/ic_launcher.png" />
-      <icon density="hdpi" src="res/icon/android/mipmap-hdpi/ic_launcher.png" />
-      <icon density="xhdpi" src="res/icon/android/mipmap-xhdpi/ic_launcher.png" />
-      <icon density="xxhdpi" src="res/icon/android/mipmap-xxhdpi/ic_launcher.png" />
-      <icon density="xxxhdpi" src="res/icon/android/mipmap-xxxhdpi/ic_launcher.png" />
+      <preference name="SplashMaintainAspectRatio" value="true"/>
+      <preference name="SplashShowOnlyFirstTime" value="true"/>
+      <icon density="ldpi" src="res/icon/android/ldpi.png"/>
+      <icon density="mdpi" src="res/icon/android/mdpi.png"/>
+      <icon density="hdpi" src="res/icon/android/hdpi.png"/>
+      <icon density="xhdpi" src="res/icon/android/xhdpi.png"/>
+      <icon density="xxhdpi" src="res/icon/android/xxhdpi.png"/>
+      <icon density="xxxhdpi" src="res/icon/android/xxxhdpi.png"/>
+      <!--  Portrait  -->
+      <splash density="port-ldpi" src="res/screen/android/splash-port-ldpi.png"/>
+      <splash density="port-mdpi" src="res/screen/android/splash-port-mdpi.png"/>
+      <splash density="port-hdpi" src="res/screen/android/splash-port-hdpi.png"/>
+      <splash density="port-xhdpi" src="res/screen/android/splash-port-xhdpi.png"/>
+      <splash density="port-xxhdpi" src="res/screen/android/splash-port-xxhdpi.png"/>
+      <splash density="port-xxxhdpi" src="res/screen/android/splash-port-xxxhdpi.png"/>
+      <!--  Landscape  -->
+      <!-- 
+              <splash density="land-ldpi" src="res/screen/android/splash-land-ldpi.png"/>
+              <splash density="land-mdpi" src="res/screen/android/splash-land-mdpi.png"/>
+              <splash density="land-hdpi" src="res/screen/android/splash-land-hdpi.png"/>
+              <splash density="land-xhdpi" src="res/screen/android/splash-land-xhdpi.png"/>
+              <splash density="land-xxhdpi" src="res/screen/android/splash-land-xxhdpi.png"/>
+              <splash density="land-xxxhdpi" src="res/screen/android/splash-land-xxxhdpi.png"/>
+               -->
     </platform>
 
 
@@ -60,28 +59,68 @@
         <true />
       </config-file>
       <preference name="StatusBarOverlaysWebView" value="true" />
-      <splash src="res/screen/ios/Default@2x~universal~anyany.png" />
-      <icon height="180" src="res/icon/ios/icon-60x60@3x.png" width="180" />
-      <icon height="60" src="res/icon/ios/icon-60x60@1x.png" width="60" />
-      <icon height="120" src="res/icon/ios/icon-60x60@2x.png" width="120" />
-      <icon height="76" src="res/icon/ios/icon-76x76@1x.png" width="76" />
-      <icon height="152" src="res/icon/ios/icon-76x76@2x.png" width="152" />
-      <icon height="228" src="res/icon/ios/icon-76x76@3x.png" width="228" />
-      <icon height="40" src="res/icon/ios/icon-40x40@1x.png" width="40" />
-      <icon height="80" src="res/icon/ios/icon-40x40@2x.png" width="80" />
-      <icon height="87" src="res/icon/ios/icon-29x29@3x.png" width="87" />
-      <icon height="57" src="res/icon/ios/icon-57x57@1x.png" width="57" />
-      <icon height="114" src="res/icon/ios/icon-57x57@2x.png" width="114" />
-      <icon height="72" src="res/icon/ios/icon-72x72@1x.png" width="72" />
-      <icon height="144" src="res/icon/ios/icon-72x72@2x.png" width="144" />
-      <icon height="167" src="res/icon/ios/icon-83.5x83.5@2x.png" width="167" />
-      <icon height="29" src="res/icon/ios/icon-29x29@1x.png" width="29" />
-      <icon height="58" src="res/icon/ios/icon-29x29@2x.png" width="58" />
-      <icon height="50" src="res/icon/ios/icon-50x50@1x.png" width="50" />
-      <icon height="100" src="res/icon/ios/icon-50x50@2x.png" width="100" />
-      <icon height="167" src="res/icon/ios/icon-83.5x83.5@2x.png" width="167" />
-      <icon height="1024" src="res/icon/ios/icon-512x512@2x.png" width="1024" />
+      <icon src="res/icon/ios/icon-1024.png" width="1024" height="1024"/>
+      <icon src="res/icon/ios/icon-small.png" width="29" height="29"/>
+      <icon src="res/icon/ios/icon-small@2x.png" width="58" height="58"/>
+      <icon src="res/icon/ios/icon-small@3x.png" width="87" height="87"/>
+      <icon src="res/icon/ios/icon-40.png" width="40" height="40"/>
+      <icon src="res/icon/ios/icon-40@2x.png" width="80" height="80"/>
+      <icon src="res/icon/ios/icon-50.png" width="50" height="50"/>
+      <icon src="res/icon/ios/icon-50@2x.png" width="100" height="100"/>
+      <icon src="res/icon/ios/icon.png" width="57" height="57"/>
+      <icon src="res/icon/ios/icon@2x.png" width="114" height="114"/>
+      <icon src="res/icon/ios/icon-60.png" width="60" height="60"/>
+      <icon src="res/icon/ios/icon-60@2x.png" width="120" height="120"/>
+      <icon src="res/icon/ios/icon-60@3x.png" width="180" height="180"/>
+      <icon src="res/icon/ios/icon-72.png" width="72" height="72"/>
+      <icon src="res/icon/ios/icon-72@2x.png" width="144" height="144"/>
+      <icon src="res/icon/ios/icon-76.png" width="76" height="76"/>
+      <icon src="res/icon/ios/icon-76@2x.png" width="152" height="152"/>
+      <icon src="res/icon/ios/icon-167.png" width="167" height="167"/>
+      <icon src="res/icon/ios/icon-83.5@2x.png" width="167" height="167"/>
+      <!--  Storyboard portrait  -->
+      <splash src="res/screen/ios/Default@2x~iphone~anyany.png"/>
+      <splash src="res/screen/ios/Default@2x~iphone~comany.png"/>
+      <splash src="res/screen/ios/Default@3x~iphone~anyany.png"/>
+      <splash src="res/screen/ios/Default@3x~iphone~comany.png"/>
+      <splash src="res/screen/ios/Default@2x~ipad~anyany.png"/>
+      <splash src="res/screen/ios/Default@2x~ipad~comany.png"/>
+      <!--  Storyboard landscape  -->
+      <!-- 
+              <splash src="res/screen/ios/Default@2x~iphone~comcom.png"/>
+              <splash src="res/screen/ios/Default@3x~iphone~anycom.png"/>
+               -->
+      <!--  Legacy portrait  -->
+      <!-- 
+              <splash src="res/screen/ios/Default~iphone.png" width="320" height="480"/>
+              <splash src="res/screen/ios/Default@2x~iphone.png" width="640" height="960"/>
+              <splash src="res/screen/ios/Default-Portrait~ipad.png" width="768" height="1024"/>
+              <splash src="res/screen/ios/Default-Portrait@2x~ipad.png" width="1536" height="2048"/>
+              <splash src="res/screen/ios/Default-568h@2x~iphone.png" width="640" height="1136"/>
+              <splash src="res/screen/ios/Default-667h.png" width="750" height="1334"/>
+              <splash src="res/screen/ios/Default-736h.png" width="1242" height="2208"/>
+               -->
+      <!--  Legacy landscape  -->
+      <!-- 
+              <splash src="res/screen/ios/Default-Landscape~ipad.png" width="1024" height="768"/>
+              <splash src="res/screen/ios/Default-Landscape@2x~ipad.png" width="2048" height="1536"/>
+               -->
     </platform>
+
+    
+    <platform name="windows">
+        <icon src="res/icon/windows/storelogo.png" target="StoreLogo"/>
+        <icon src="res/icon/windows/smalllogo.png" target="Square30x30Logo"/>
+        <icon src="res/icon/windows/Square44x44Logo.png" target="Square44x44Logo"/>
+        <icon src="res/icon/windows/Square70x70Logo.png" target="Square70x70Logo"/>
+        <icon src="res/icon/windows/Square71x71Logo.png" target="Square71x71Logo"/>
+        <icon src="res/icon/windows/Square150x150Logo.png" target="Square150x150Logo"/>
+        <icon src="res/icon/windows/Square310x310Logo.png" target="Square310x310Logo"/>
+
+        <splash src="res/screen/windows/splashscreen.png" target="SplashScreen"/>
+        <splash src="res/screen/windows/splashscreenphone.png" target="SplashScreenPhone"/>
+    </platform>
+     
 
 
 
