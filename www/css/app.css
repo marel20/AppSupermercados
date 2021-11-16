@@ -101,15 +101,18 @@
     justify-content: space-between;
     align-items: center;
 }
-.nav > select {margin-left: 15%;}
 .selectsucursales{
-    padding: 1%;
+    padding: 2%;
     text-align: center;
     font: bold;
+    font-size: 90%;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: yellow;
     background-color: orange;
     border-radius: 15px;
+}
+.sucu{
+   margin: 0 35%;
 }
 .select{
   margin: 1% 15%;
@@ -244,8 +247,9 @@ section{
 .carrito{
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
+  text-align: center;
   padding: 1%;
   margin: 1% 0;
 }

@@ -240,7 +240,7 @@ txtMostrar = '';
 $$(document).on('page:init', '.page[data-name="cuenta"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
-  
+  fnSacaBoton();
 })
 // Option 2. Using live 'page:init' event handlers for each page
 $$(document).on('page:init', '.page[data-name="resumen"]', function (e) {
@@ -553,7 +553,7 @@ function fnAgregaProducto() {
     <input type="text" value="1" min="0" max="100" step="1" readonly />
   </div>
   <div class="stepper-button-plus"></div>
-</div> <br>`);
+</div>` + "<br>");
   $$(precUnit).append('$' + precio + "<br>");
 
 
@@ -622,6 +622,7 @@ function fnNuevoUsuario() {
   
 }
   
+var logueado = 0;
 function fnIngresoUsuario() {
 
   email=$$("#mailLog").val();
@@ -636,7 +637,7 @@ function fnIngresoUsuario() {
             // Signed in
             var user = userCredential.user;
             // traer los datos de la base de datos de ESTE usuario en particular
-
+            logueado = 1;
             docRef = colUsuarios.doc(email);
 
             docRef
@@ -649,7 +650,7 @@ function fnIngresoUsuario() {
                         direccion = doc.data().direccion;
                         tipoUsuario = doc.data().tipoUsuario;
 
-                        fnSacaBoton();
+                      
 
                         console.log("Bienvenid@!! " + email);
                         mainView.router.navigate("/cuenta/");
@@ -678,9 +679,13 @@ function fnIngresoUsuario() {
 
 function fnSacaBoton() {
   console.log('Saque boton');
-  $$('#ocultar').removeClass('visible').addClass('oculto');
-  $$('#visualizar').removeClass('oculto').addClass('visible');
+  if (logueado == 1) { 
+    $$('#visualizar').removeClass('oculto').addClass('visible');
+    $$('#ocultar').removeClass('visible').addClass('oculto');
+} 
 }
+
+//function fnCerrarSesion() {}
 
 function fnLlenarResumen() {
   console.log(micarrito);
