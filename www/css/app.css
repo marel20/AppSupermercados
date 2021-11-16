@@ -147,18 +147,39 @@
 .ofertas > .col-50 > img {width: 70%; height: 70%; margin: 3% 15%;}
 .titulo {text-align: center;}
 
+.demo-swiper .swiper-slide {
+  font-size: 25px;
+  font-weight: 300;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  color: #000;
+}
 
-  .demo-swiper.demo-swiper-auto .swiper-slide {
-    width: 85%;
-  }
+.demo-swiper .swiper-slide {
+  box-sizing: border-box;
+  background: #fff;
+}
 
-  .demo-swiper.demo-swiper-auto .swiper-slide:nth-child(2n) {
-    width: 70%;
-  }
+.demo-swiper {
+  margin: 0px 0 35px;
+  font-size: 18px;
+  height: 400px;
+}
 
-  .demo-swiper.demo-swiper-auto .swiper-slide:nth-child(3n) {
-    width: 30%;
-  }
+.demo-swiper.demo-swiper-auto .swiper-slide {
+  width: 85%;
+}
+
+.demo-swiper.demo-swiper-auto .swiper-slide:nth-child(2n) {
+  width: 70%;
+}
+
+.demo-swiper.demo-swiper-auto .swiper-slide:nth-child(3n) {
+  width: 30%;
+}
+
 .boton{
     color: yellow;
     font: bold;
@@ -193,7 +214,7 @@ section{
   align-items: center;
 }
 .ofertas  > .col-50 > span{
-  margin: 0 25%;
+  margin: 1%;
   font: bold;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
@@ -223,8 +244,10 @@ section{
 .carrito{
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+  padding: 1%;
+  margin: 1% 0;
 }
 .carrito1{
   display: flex;

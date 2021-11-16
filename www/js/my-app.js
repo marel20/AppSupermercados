@@ -39,6 +39,7 @@ var db = firebase.firestore();
 var colCategorias = db.collection("categorias");
 var colProductos = db.collection("productos");
 var colUsuarios = db.collection("usuarios");
+//var colMensajes = db.colecction("mensajes");
 
 var email = "";
 var password = "";
@@ -99,7 +100,6 @@ $$(document).on('page:init', function (e) {
     //console.log(e);
    $$('#agregar1').on('click', fnAgregaProducto);
    $$('#agregar2').on('click', fnAgregaProducto);
-   //crearBusqueda;  
 
 
 
@@ -110,7 +110,8 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
   crearCategorias();
   $$('#confirmar').on('click', fnConfirmarPedido);
   $$('#registro').on('click', fnNuevoUsuario);
-  $$('#confirmar').on('click', fnultimoPedido);
+  $$('#confirmar').on('click', fnultimoPedido());
+
 
 })
 
@@ -123,7 +124,7 @@ $$(document).on('page:init', '.page[data-name="busqueda"]', function (e) {
   
   $$('#search').on('click', fnbusqueda);
   crearBusqueda();
-  $$('#agregar2').on('click', fnAgregaProducto);
+
 })
 
 
@@ -247,8 +248,8 @@ $$(document).on('page:init', '.page[data-name="resumen"]', function (e) {
  // console.log(e);
   $$('#volver').on('click', fnVolverInicio);
   //console.log('estoy por llenar el resumen')
-  $$('#volver').on('click', fnultimoPedido);
-  fnLlenarResumen;
+  $$('#volver').on('click', fnultimoPedido());
+  fnLlenarResumen();
 
 })
 // Option 2. Using live 'page:init' event handlers for each page
@@ -268,7 +269,7 @@ $$(document).on('page:init', '.page[data-name="mispedidos"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
   console.log('ultimo pedido');
-  $$('#confirmar').on('click', fnultimoPedido);
+  $$('#confirmar').on('click', fnultimoPedido());
 })
 // Option 2. Using live 'page:init' event handlers for each page
 $$(document).on('page:init', '.page[data-name="iniciar"]', function (e) {
@@ -546,8 +547,15 @@ function fnAgregaProducto() {
 
   
   $$(descr).append(producto + "<br>");
-  $$(cant).append(cantidad + "<br>");
-  $$(precUnit).append(precio + "<br>");
+  $$(cant).append(` <div class="stepper stepper-raised stepper-small stepper-round stepper-fill stepper-init">
+  <div class="stepper-button-minus"></div>
+  <div class="stepper-input-wrap">
+    <input type="text" value="1" min="0" max="100" step="1" readonly />
+  </div>
+  <div class="stepper-button-plus"></div>
+</div> <br>`);
+  $$(precUnit).append('$' + precio + "<br>");
+
 
   canTotal = parseInt($$(totalArt).text());
   canTotal+= (cantidad);
@@ -641,7 +649,7 @@ function fnIngresoUsuario() {
                         direccion = doc.data().direccion;
                         tipoUsuario = doc.data().tipoUsuario;
 
-                        fnSacaBoton;
+                        fnSacaBoton();
 
                         console.log("Bienvenid@!! " + email);
                         mainView.router.navigate("/cuenta/");
@@ -681,23 +689,23 @@ function fnLlenarResumen() {
   var retiroMercaderia = "";
   var formaDePago = "";
   micarrito.map(function(producto){
-    totalDeMiCarrito += producto.precio;
+    totalDeMiCarrito += parseInt(producto.precio);
     totalDeArticulos += producto.cantidad;
     retiroMercaderia = $$('#envio').val();
     formaDePago = $$('#pago').val();
     var productoParaAgregar=`<div><div class="carrito1">
     <div><h4 id="Rdescripcion">${producto.nombre}</h4></div>
     <div><h4 id="Rcantidad">${producto.cantidad}</h4></div>
-    <div><h4 id="RprecUnit">${producto.precio}</h4></div></div></div>`
+    <div><h4 id="RprecUnit">$ ${producto.precio}</h4></div></div></div>`
 
     //algo como: id. append
     $$('#resumenPedido').append(productoParaAgregar);
     $$('#RtotalArt').html(parseInt(totalDeArticulos));
-    $$('#RtotalPesos').html(totalDeMiCarrito);
+    $$('#RtotalPesos').html(parseInt(totalDeMiCarrito));
     $$('#envioR').html(retiroMercaderia);
     $$('#pagoR').html(formaDePago);
   })
-  emailSucursal;
+  emailSucursal();
 }
 
 function fnultimoPedido() {
@@ -708,18 +716,18 @@ function fnultimoPedido() {
   var pagoPedido = "";
   miUltimoCarrito.map(function(producto){
     totalPedido += producto.cantidad;
-    pesosPedido += producto.precio;
+    pesosPedido += parseInt(producto.precio);
     envioPedido = $$('#envio').val();
     pagoPedido = $$('#pago').val();
     var pedidoTotal = `<div><div class="carrito1">
     <div><h4 id="Rdescripcion">${producto.nombre}</h4></div>
     <div><h4 id="Rcantidad">${producto.cantidad}</h4></div>
-    <div><h4 id="RprecUnit">${producto.precio}</h4></div></div></div>`
+    <div><h4 id="RprecUnit">$ ${producto.precio}</h4></div></div></div>`
 
     $$('#miPedido').append(pedidoTotal);
   })
   $$('#totalPedido').html(totalPedido);
-  $$('#pesosPedido').html(pesosPedido);
+  $$('#pesosPedido').html(parseInt(pesosPedido));
   $$('miEnvio').html(envioPedido);
   $$('miPago').html(pagoPedido);
 }
@@ -778,15 +786,15 @@ function fnbusqueda(){
         .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
 
-              n=doc.data().nombre;
-              p=doc.data().precio;
-
+              let n=doc.data().nombre;
+              let p=doc.data().precio;
+              
                 var producto = `<li class="item-content">
                     <div class="item-inner">
                         <div class="item-title">${doc.data().nombre}<br><h4>$${doc.data().precio}</h4></div>
                         <div class="item-after">
                         <div class="block-strong visible">
-                        <button class="boton col button button-fill" id="agregar2">
+                        <button class="boton col button button-fill" id="${doc.data().nombre}" onclick="fnAgregarDesdeBusqueda('${n}','${p}')">
                         <img src="img/icons/carritocompras.png"></button>
                         </div></div>
                         <div class="row margin-top oculto">
@@ -804,12 +812,43 @@ function fnbusqueda(){
                     </div>
                 </li>`;
                 $$("#select-productos").append(producto);
-                $$('#agregar2').on('click', fnAgregaProducto);
             });
         })
         .catch(function (error) {
             console.log("Error getting documents: ", error);
         });
+}
+
+function fnAgregarDesdeBusqueda(nombre, precio) {
+  
+  producto = nombre;
+  precio = precio;
+  cantidad = 1;
+  micarrito.push({nombre:producto, precio:precio, cantidad:1})
+  console.log(producto);
+  console.log(precio);
+
+  
+  $$(descr).append(producto + "<br>");
+  $$(cant).append(` <div class="stepper stepper-raised stepper-small stepper-round stepper-fill stepper-init">
+  <div class="stepper-button-minus"></div>
+  <div class="stepper-input-wrap">
+    <input type="text" value="1" min="0" max="100" step="1" readonly />
+  </div>
+  <div class="stepper-button-plus"></div>
+</div> <br>`);
+  $$(precUnit).append('$' + precio + "<br>");
+
+
+  canTotal = parseInt($$(totalArt).text());
+  canTotal+= (cantidad);
+  $$(totalArt).html(canTotal);
+  //console.log(canTotal);
+
+  pesosTotal = parseInt($$(totalPesos).text());
+  pesosTotal+= parseInt((cantidad * precio));
+  $$(totalPesos).html(pesosTotal);
+  //console.log(pesosTotal);
 }
 
 function crearBusqueda() {
@@ -838,3 +877,17 @@ function emailSucursal() {
     console.log('Mail sucursal Cañada');    
   }
 }
+
+/*
+function fnEnviarConsulta() {
+  mensaje = $$('#consulta').val();
+
+  colMensajes.doc(mensaje).set({
+})
+.then(() => {
+    console.log("Se envió la consulta");
+})
+.catch((error) => {
+    console.error("Error writing document: ", error);
+});
+}*/
