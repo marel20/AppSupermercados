@@ -94,6 +94,7 @@ var getData = function () {
 
 }
 
+
 // Option 1. Using one 'page:init' handler for all pages
 $$(document).on('page:init', function (e) {
     // Do something here when page loaded and initialized
@@ -112,6 +113,7 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
   $$('#registro').on('click', fnNuevoUsuario);
   $$('#confirmar').on('click', fnultimoPedido());
 
+  //setInterval(function() {fnMoveSlider();}, 5000)
 
 })
 
@@ -159,7 +161,7 @@ $$(document).on('page:init', '.page[data-name="categoria"]', function (e, page) 
                 <div class="stepper stepper-small stepper-fill stepper-round stepper-init color-orange">
                       <div class="stepper-button-minus"></div>
                           <div class="stepper-input-wrap">
-                              <input type="text" value="0" min="0" max="100" step="1" readonly />
+                              <input type="text" id="agregar2" value="0" min="0" max="100" step="1" readonly />
                           </div>
                       <div class="stepper-button-plus"></div>
                   </div>
@@ -241,6 +243,7 @@ $$(document).on('page:init', '.page[data-name="cuenta"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   console.log(e);
   fnSacaBoton();
+  $$('#cerrar').on('click', fnCerrarSesion);
 })
 // Option 2. Using live 'page:init' event handlers for each page
 $$(document).on('page:init', '.page[data-name="resumen"]', function (e) {
@@ -547,13 +550,7 @@ function fnAgregaProducto() {
 
   
   $$(descr).append(producto + "<br>");
-  $$(cant).append(` <div class="stepper stepper-raised stepper-small stepper-round stepper-fill stepper-init">
-  <div class="stepper-button-minus"></div>
-  <div class="stepper-input-wrap">
-    <input type="text" value="1" min="0" max="100" step="1" readonly />
-  </div>
-  <div class="stepper-button-plus"></div>
-</div>` + "<br>");
+  $$(cant).append(cantidad + "<br>");
   $$(precUnit).append('$' + precio + "<br>");
 
 
@@ -682,10 +679,24 @@ function fnSacaBoton() {
   if (logueado == 1) { 
     $$('#visualizar').removeClass('oculto').addClass('visible');
     $$('#ocultar').removeClass('visible').addClass('oculto');
-} 
+} else {
+  $$('#visualizar').removeClass('visible').addClass('oculto');
+  $$('#ocultar').removeClass('oculto').addClass('visible');
+  }
 }
 
-//function fnCerrarSesion() {}
+function fnCerrarSesion() {
+  console.log('Cerramos sesion');
+  firebase.auth().signOut().then(()  => {
+    logueado = 0;
+    console.log('Cerramos definitivamente');
+    mainView.router.navigate('/index/');
+  })
+  .catch((error) => {
+    console.log('error' + error);
+  });
+
+}
 
 function fnLlenarResumen() {
   console.log(micarrito);
