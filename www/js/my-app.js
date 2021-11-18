@@ -69,6 +69,7 @@ var getData = function () {
   var name = $$('#nomAp').val();
   var email = $$('#mailCons').val();
   var celu = $$('#tel').val();
+  var mensaje = $$('#consulta').val();
 
   if (name == "") {
       $$('#nomAp').focus();
@@ -79,13 +80,18 @@ var getData = function () {
         if (celu == "") {
           $$('#tel').focus();
       } else {
+        if (mensaje == "") {
+          $$('#consulta').focus();
+        } else{
         console.log(name);
         console.log(email);
         console.log(celu);
-
+        console.log(mensaje);
+      }
         name = "";
         email = "";
         celu = "";
+        mensaje = "";
       }
       }
   }
@@ -156,16 +162,6 @@ $$(document).on('page:init', '.page[data-name="categoria"]', function (e, page) 
             <div class="block-strong visible">
             <button class="boton col button button-fill" id="agregar1">Agregar a carrito</button>
             </div></div>
-            <div class="row margin-top oculto">
-              <div class="col">
-                <div class="stepper stepper-small stepper-fill stepper-round stepper-init color-orange">
-                      <div class="stepper-button-minus"></div>
-                          <div class="stepper-input-wrap">
-                              <input type="text" id="agregar2" value="0" min="0" max="100" step="1" readonly />
-                          </div>
-                      <div class="stepper-button-plus"></div>
-                  </div>
-              </div>
           </div>`;
         });
         //$$('#nombreCategoria').html(cat);
@@ -549,9 +545,9 @@ function fnAgregaProducto() {
   console.log(precio);
 
   
-  $$(descr).append(producto + "<br>");
-  $$(cant).append(cantidad + "<br>");
-  $$(precUnit).append('$' + precio + "<br>");
+  $$(descr).append(producto + "<br><br>");
+  $$(cant).append(cantidad + "<br><br>");
+  $$(precUnit).append('$' + precio + "<br><br>");
 
 
   canTotal = parseInt($$(totalArt).text());
@@ -810,20 +806,9 @@ function fnbusqueda(){
                         <div class="item-title">${doc.data().nombre}<br><h4>$${doc.data().precio}</h4></div>
                         <div class="item-after">
                         <div class="block-strong visible">
-                        <button class="boton col button button-fill" id="${doc.data().nombre}" onclick="fnAgregarDesdeBusqueda('${n}','${p}')">
+                        <button class="botonn col button button-fill" id="${doc.data().nombre}" onclick="fnAgregarDesdeBusqueda('${n}','${p}')">
                         <img src="img/icons/carritocompras.png"></button>
                         </div></div>
-                        <div class="row margin-top oculto">
-                          <div class="col">
-                            <div class="stepper stepper-small stepper-fill stepper-round stepper-init color-orange">
-                                  <div class="stepper-button-minus"></div>
-                                      <div class="stepper-input-wrap">
-                                          <input type="text" value="0" min="0" max="100" step="1" readonly />
-                                      </div>
-                                  <div class="stepper-button-plus"></div>
-                              </div>
-                          </div>
-                      </div>
                         </div>
                     </div>
                 </li>`;
@@ -845,15 +830,9 @@ function fnAgregarDesdeBusqueda(nombre, precio) {
   console.log(precio);
 
   
-  $$(descr).append(producto + "<br>");
-  $$(cant).append(` <div class="stepper stepper-raised stepper-small stepper-round stepper-fill stepper-init">
-  <div class="stepper-button-minus"></div>
-  <div class="stepper-input-wrap">
-    <input type="text" value="1" min="0" max="100" step="1" readonly />
-  </div>
-  <div class="stepper-button-plus"></div>
-</div> <br>`);
-  $$(precUnit).append('$' + precio + "<br>");
+  $$(descr).append(producto + "<br><br>");
+  $$(cant).append(cantidad +  "<br><br>");
+  $$(precUnit).append('$' + precio + "<br><br>");
 
 
   canTotal = parseInt($$(totalArt).text());
