@@ -111,9 +111,7 @@
     background-color: orange;
     border-radius: 15px;
 }
-.sucu{
-   margin: 0 35%;
-}
+.sucu{ margin: 0 35%;}
 .select{
   margin: 1% 15%;
   padding: 3%;
@@ -148,40 +146,6 @@
 }
 .ofertas > .col-50 > img {width: 70%; height: 70%; margin: 3% 15%;}
 .titulo {text-align: center;}
-
-/*
-.demo-swiper .swiper-slide {
-  font-size: 25px;
-  font-weight: 300;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #fff;
-  color: #000;
-}
-
-.demo-swiper .swiper-slide {
-  box-sizing: border-box;
-  background: #fff;
-}
-
-.demo-swiper {
-  margin: 0px 0 35px;
-  font-size: 18px;
-  height: 400px;
-}
-
-.demo-swiper.demo-swiper-auto .swiper-slide {
-  width: 85%;
-}
-
-.demo-swiper.demo-swiper-auto .swiper-slide:nth-child(2n) {
-  width: 70%;
-}
-
-.demo-swiper.demo-swiper-auto .swiper-slide:nth-child(3n) {
-  width: 30%;
-}*/
 
 .container-all > .slide > .item-slide > img {max-width: 100%;}
 .container-all > .pagination > .pagination-item > img {max-width: 100%;}
@@ -401,9 +365,7 @@ section{
   font: bold;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
-.beneficios{
-  max-width: 100%;
-}
+
 .visible{
   display: block;
   visibility: visible;
@@ -433,12 +395,7 @@ section{
   padding: 1%;
   margin: 1% 0;
 }
-.carrito1{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
+
 .row{
   align-items: center;
 }

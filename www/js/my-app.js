@@ -39,7 +39,8 @@ var db = firebase.firestore();
 var colCategorias = db.collection("categorias");
 var colProductos = db.collection("productos");
 var colUsuarios = db.collection("usuarios");
-//var colMensajes = db.colecction("mensajes");
+//var colCañada = db.collection('Suc Cañada');
+//var colCorrea = db.collection('Suc Correa');
 
 var email = "";
 var password = "";
@@ -119,7 +120,6 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
   $$('#registro').on('click', fnNuevoUsuario);
   $$('#confirmar').on('click', fnultimoPedido());
 
-  //setInterval(function() {fnMoveSlider();}, 5000)
 
 })
 
@@ -127,7 +127,7 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
 // Option 2. Using live 'page:init' event handlers for each page
 $$(document).on('page:init', '.page[data-name="busqueda"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
-  console.log(e);
+  //console.log(e);
 
   
   $$('#search').on('click', fnbusqueda);
@@ -138,8 +138,8 @@ $$(document).on('page:init', '.page[data-name="busqueda"]', function (e) {
 
 $$(document).on('page:init', '.page[data-name="categoria"]', function (e, page) {
   // Do something here when page with data-name="about" attribute loaded and initialized
-  console.log(e);
-  console.log('Pag. Categoria con id: ' + page.route.params.id );
+  //console.log(e);
+  //console.log('Pag. Categoria con id: ' + page.route.params.id );
   idCategoria = "" + page.route.params.id;
   
 
@@ -180,7 +180,7 @@ $$(document).on('page:init', '.page[data-name="categoria"]', function (e, page) 
 // Option 2. Using live 'page:init' event handlers for each page
 $$(document).on('page:init', '.page[data-name="categorias"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
-  console.log(e);
+  //console.log(e);
 
 grupoActual = "";
 inicio = 0;
@@ -237,7 +237,7 @@ txtMostrar = '';
 // Option 2. Using live 'page:init' event handlers for each page
 $$(document).on('page:init', '.page[data-name="cuenta"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
-  console.log(e);
+  //console.log(e);
   fnSacaBoton();
   $$('#cerrar').on('click', fnCerrarSesion);
 })
@@ -254,20 +254,20 @@ $$(document).on('page:init', '.page[data-name="resumen"]', function (e) {
 // Option 2. Using live 'page:init' event handlers for each page
 $$(document).on('page:init', '.page[data-name="registro"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
-  console.log(e);
+  //console.log(e);
   $$('#registro').on('click', fnNuevoUsuario)
 })
 // Option 2. Using live 'page:init' event handlers for each page
 $$(document).on('page:init', '.page[data-name="sucursales"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
-  console.log(e);
+  //console.log(e);
 
 })
 // Option 2. Using live 'page:init' event handlers for each page
 $$(document).on('page:init', '.page[data-name="mispedidos"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
-  console.log(e);
-  console.log('ultimo pedido');
+  //console.log(e);
+  //console.log('ultimo pedido');
   $$('#confirmar').on('click', fnultimoPedido());
 })
 // Option 2. Using live 'page:init' event handlers for each page
@@ -391,7 +391,7 @@ dameUnID = "1001";   datos = { nombre: "Fideos Coditos knorr", precio: 57.80, im
 colProductos.doc(dameUnID).set(datos);
 
 dameUnID = "1041";   datos = { nombre: "Fideos Mostachol knorr", precio: 57.80, imagen: 'img/ofertas/oferta1.jpg',
- enOferta: 0, destado: 1, codCategoria: "1" };
+ enOferta: 0, destado: 0, codCategoria: "1" };
 colProductos.doc(dameUnID).set(datos);
 
 dameUnID = "1002";   datos = { nombre: "Te La Virginia x25 unid.", precio: 25, imagen: 'img/ofertas/oferta1.jpg',
@@ -587,7 +587,7 @@ function fnNuevoUsuario() {
   
           colUsuarios.doc(email).set(datosUsuario)
               .then(function() {     // .then((docRef) => {
-                console.log("Usuario Registrado!");
+                //console.log("Usuario Registrado!");
               mainView.router.navigate('/iniciar/');
 
               })
@@ -604,8 +604,8 @@ function fnNuevoUsuario() {
           console.error(errorMessage);
   
           if (errorCode == "auth/email-already-in-use") {
-              console.error("el mail ya esta usado");
-              alert("el mail ya esta usado");
+              //console.error("el mail ya esta usado");
+              alert("El mail ya esta en uso");
           }
   
           // ..
@@ -620,8 +620,8 @@ function fnIngresoUsuario() {
 
   email=$$("#mailLog").val();
   password=$$("#passwLog").val();
-  console.log(email);
-  console.log(password);
+  //console.log(email);
+  //console.log(password);
   
   firebase
         .auth()
@@ -664,8 +664,8 @@ function fnIngresoUsuario() {
 
             console.error(errorCode);
             console.error(errorMessage);
-            $$("#msgErrorLogin").html("Debes registrarte para iniciar sesión");
-            mainView.router.navigate('/registro/');
+            $$("#msgErrorLogin").html("Usuario o contraseña incorrecta. <br> Si no estas registrado, debes registrarte para iniciar sesión");
+            //mainView.router.navigate('/registro/');
 
         });
 }
@@ -705,10 +705,10 @@ function fnLlenarResumen() {
     totalDeArticulos += producto.cantidad;
     retiroMercaderia = $$('#envio').val();
     formaDePago = $$('#pago').val();
-    var productoParaAgregar=`<div><div class="carrito1">
+    var productoParaAgregar=`<div class="carrito">
     <div><h4 id="Rdescripcion">${producto.nombre}</h4></div>
     <div><h4 id="Rcantidad">${producto.cantidad}</h4></div>
-    <div><h4 id="RprecUnit">$ ${producto.precio}</h4></div></div></div>`
+    <div><h4 id="RprecUnit">$ ${producto.precio}</h4></div></div>`
 
     //algo como: id. append
     $$('#resumenPedido').append(productoParaAgregar);
@@ -726,15 +726,16 @@ function fnultimoPedido() {
   var pesosPedido = 0;
   var envioPedido = "";
   var pagoPedido = "";
+  
   miUltimoCarrito.map(function(producto){
     totalPedido += producto.cantidad;
     pesosPedido += parseInt(producto.precio);
     envioPedido = $$('#envio').val();
     pagoPedido = $$('#pago').val();
-    var pedidoTotal = `<div><div class="carrito1">
+    var pedidoTotal = `<div class="carrito">
     <div><h4 id="Rdescripcion">${producto.nombre}</h4></div>
     <div><h4 id="Rcantidad">${producto.cantidad}</h4></div>
-    <div><h4 id="RprecUnit">$ ${producto.precio}</h4></div></div></div>`
+    <div><h4 id="RprecUnit">$ ${producto.precio}</h4></div></div>`
 
     $$('#miPedido').append(pedidoTotal);
   })
@@ -746,8 +747,13 @@ function fnultimoPedido() {
 
 function fnConfirmarPedido() {
   //console.log('Entramos a la funcion')
-  mainView.router.navigate('/resumen/');
+ // mainView.router.navigate('/resumen/');
 
+  if (logueado == 0) {
+    mainView.router.navigate('/iniciar/');
+  } else {
+    mainView.router.navigate('/resumen/');
+  }
 
 
 /*
@@ -791,7 +797,7 @@ function fnVolverInicio() {
 }
 
 function fnbusqueda(){
-  console.log("busqueda");
+  //console.log("busqueda");
     colProductos
         .orderBy("nombre")
         .get()
@@ -866,12 +872,14 @@ function emailSucursal() {
   var sucCorrea = $$('#corr').val();
 
   if (sucursal == sucCorrea) {
-    console.log('Mail sucursal Correa');
+    //console.log('Mail sucursal Correa');
+    
     
   } else {
     console.log('Mail sucursal Cañada');    
   }
 }
+
 
 /*
 function fnEnviarConsulta() {
